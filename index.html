@@ -161,7 +161,8 @@
     width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;
     border-top:7px solid var(--gold);
   }
-  .pin-spring svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .pin-spring svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .pin-spring span{font-family:"Fraunces",serif;font-weight:700;font-size:15px;color:#fff;line-height:1}
 
   /* ---------- Popups ---------- */
   .leaflet-popup-content-wrapper{border-radius:14px;box-shadow:var(--shadow);border:1px solid var(--line);padding:0;overflow:hidden}
@@ -601,7 +602,7 @@ STOPS.forEach((s,i)=>{
   const cls = s.role==="start" ? "start" : "mid";
   const isSpring = s.pinStyle==="spring";
   const iconHtml = isSpring
-    ? `<div class="pin-wrap"><div class="pin-spring">${SPRING_SVG}</div></div>`
+    ? `<div class="pin-wrap"><div class="pin-spring"><span>${i}</span></div></div>`
     : `<div class="pin-wrap"><div class="pin ${cls}"><span>${s.role==="start" ? "S" : i}</span></div></div>`;
   const icon = L.divIcon({
     className:"",
