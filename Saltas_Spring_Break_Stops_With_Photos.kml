@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+  <name>Saltas Family August "SPRING" Break — Murray to Lava Hot Springs Road Trip</name>
+  <description><![CDATA[Utah · Idaho — Sunday Drive. North on I-15 through Malad and McCammon to the hot pools, then home by Soda Springs, Preston, and Logan — Sunday, August 16. Gold-marked stops are soaking springs. 14 stops · 161.7 mi outbound · 195.9 mi return · ~7h 15m total drive time.]]></description>
+  <Style id="startPin"><IconStyle><Icon><href>https://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href></Icon></IconStyle></Style>
+  <Style id="springPin"><IconStyle><Icon><href>https://maps.google.com/mapfiles/kml/paddle/blu-circle.png</href></Icon></IconStyle></Style>
+  <Style id="midPin"><IconStyle><Icon><href>https://maps.google.com/mapfiles/kml/paddle/red-circle.png</href></Icon></IconStyle></Style>
+  <Folder>
+    <name>Stops</name>
+    
+    <Placemark>
+      <name>S · Home — Murray, UT</name>
+      <styleUrl>#startPin</styleUrl>
+      <description><![CDATA[<div style="color:#666;font-size:12px;margin-bottom:6px">4748 South Glencrest Road · Starting point</div><p style="margin:0 0 10px 0">Home base — starting and ending point of the loop.</p><div style="margin-bottom:8px"><b>Address:</b> 4748 South Glencrest Road, Murray, UT 84107</div>]]></description>
+      <Point><coordinates>-111.875831,40.667194,0</coordinates></Point>
+    </Placemark>
+    <Placemark>
+      <name>1 · Crystal Hot Springs</name>
+      <styleUrl>#springPin</styleUrl>
+      <description><![CDATA[<img src="https://iili.io/C6NHRyP.jpg" style="width:100%;max-width:320px;border-radius:6px;margin-bottom:8px" /><div style="color:#666;font-size:12px;margin-bottom:6px">Developed hot &amp; cold pools · Honeyville, UT</div><p style="margin:0 0 10px 0">About 13 miles north of Brigham City on the way out, Crystal Hot Springs channels natural mineral water into a range of developed pools from cool to scalding, plus a large recreational pool and waterslide — an easy first soak of the trip, right off I-15.</p><div style="margin-bottom:8px"><b>Address:</b> 8215 N Hwy 38, Honeyville, UT 84314</div><div style="margin-top:8px;font-size:11px;color:#888">Photo reference: <a href="https://www.crystalhotsprings.net/" target="_blank">Illustrative rendering — exact pools not photographed</a></div>]]></description>
+      <Point><coordinates>-112.088,41.659,0</coordinates></Point>
+    </Placemark>
+    <Placemark>
+      <name>2 · Malad City — Oneida Pioneer Museum</name>
+      <styleUrl>#midPin</styleUrl>
+      <description><![CDATA[<img src="https://iili.io/C6N9Fzg.jpg" style="width:100%;max-width:320px;border-radius:6px;margin-bottom:8px" /><div style="color:#666;font-size:12px;margin-bottom:6px">27 Bannock St · Oneida County seat</div><p style="margin:0 0 10px 0">Malad City was settled in the 1860s largely by Welsh immigrants — it's said to have more residents of Welsh descent per capita than anywhere in the U.S. outside Wales. The Oneida Pioneer Museum documents that Welsh, Mormon-pioneer, and Shoshone history, and the 1917 Oneida County Courthouse anchors the small historic downtown a block away.</p><div style="margin-bottom:8px"><b>Address:</b> 27 Bannock St, Malad City, ID 83252</div><div style="margin-top:8px;font-size:11px;color:#888">Photo reference: <a href="https://www.idahoheritagetrust.org/projects-grants/oneida-pioneer-museum/" target="_blank">Idaho Heritage Trust</a></div>]]></description>
+      <Point><coordinates>-112.2462,42.186055,0</coordinates></Point>
+    </Placemark>
+    <Placemark>
+      <name>3 · Devil Creek Reservoir</name>
+      <styleUrl>#midPin</styleUrl>
+      <description><![CDATA[<img src="https://iili.io/C6N9mjn.jpg" style="width:100%;max-width:320px;border-radius:6px;margin-bottom:8px" /><div style="color:#666;font-size:12px;margin-bottom:6px">I-15 Exit 22 · scenic overlook</div><p style="margin:0 0 10px 0">Tucked into a break in the mountains just north of Malad Pass, Devil Creek Reservoir is stocked with rainbow trout by Idaho Fish &amp; Game. It sits right alongside the highway, with views back down the Malad Valley.</p><div style="margin-bottom:8px"><b>Address:</b> Devil Creek Reservoir, near I-15 Exit 22, Malad, ID</div><div style="margin-top:8px;font-size:11px;color:#888">Photo reference: <a href="https://idfg.idaho.gov/ifwis/fishingplanner/water/1122052422984" target="_blank">Idaho Fish &amp; Game</a></div>]]></description>
+      <Point><coordinates>-112.204022,42.2994,0</coordinates></Point>
+    </Placemark>
+    <Placemark>
+      <name>4 · McCammon</name>
+      <styleUrl>#midPin</styleUrl>
+      <description><![CDATA[<img src="https://iili.io/C6NH9CG.jpg" style="width:100%;max-width:320px;border-radius:6px;margin-bottom:8px" /><div style="color:#666;font-size:12px;margin-bottom:6px">US-30 / I-15 Business Loop · "Junction City"</div><p style="margin:0 0 10px 0">McCammon grew up in 1892 as the junction of the Oregon Short Line Railroad and the Utah &amp; Northern Railway, earning it the old nickname "Junction City." It still carries some of that railroad-town character, including the historic Harkness Hotel, and marks the turnoff from I-15 onto US-30 toward Lava Hot Springs.</p><div style="margin-bottom:8px"><b>Address:</b> McCammon, ID 83250</div><div style="margin-top:8px;font-size:11px;color:#888">Photo reference: <a href="https://en.wikipedia.org/wiki/McCammon,_Idaho" target="_blank">Wikipedia</a></div>]]></description>
+      <Point><coordinates>-112.193022,42.650472,0</coordinates></Point>
+    </Placemark>
+    <Placemark>
+      <name>5 · Lava Hot Springs</name>
+      <styleUrl>#midPin</styleUrl>
+      <description><![CDATA[<img src="https://iili.io/C6NHJ44.jpg" style="width:100%;max-width:320px;border-radius:6px;margin-bottom:8px" /><img src="https://iili.io/C6NH23l.jpg" style="width:100%;max-width:320px;border-radius:6px;margin-bottom:8px" /><img src="https://iili.io/C6NHFvS.jpg" style="width:100%;max-width:320px;border-radius:6px;margin-bottom:8px" /><div style="color:#666;font-size:12px;margin-bottom:6px">Main Street · World Famous Hot Pools</div><p style="margin:0 0 10px 0">The mineral hot pools here have drawn visitors for well over a century; the Shoshone-Bannock people are said to have treated the springs as neutral, sacred ground where rival tribes could bathe in peace. Today the state-run Hot Pools sit alongside a separate Olympic-size swimming pool and waterslide complex on the Portneuf River, with Main Street's shops and cafes a short walk away — the turnaround point of the day.</p><div style="margin-bottom:8px"><b>Address:</b> 430 E Main St, Lava Hot Springs, ID 83246</div><div style="margin-top:8px"><b>Nearby dining</b><ul style="margin:4px 0 0 0;padding-left:18px"><li><b>78 Main Street Eatery</b> &mdash; Classic American comfort food — burgers, sandwiches, hearty breakfasts — with a true small-town vibe.</li><li><b>Portneuf Grille &amp; Lounge</b> &mdash; Northwest-inspired fine dining at Riverside Hot Springs Inn; fresh seafood and aged prime steak.</li><li><b>Riverwalk Thai</b> &mdash; Family-owned Thai food in a converted former gas station near the hot springs.</li></ul></div>]]></description>
+      <Point><coordinates>-112.005689,42.61922,0</coordinates></Point>
+    </Placemark>
+    <Placemark>
+      <name>6 · Soda Springs Geyser</name>
+      <styleUrl>#springPin</styleUrl>
+      <description><![CDATA[<img src="https://iili.io/C6NHKy7.jpg" style="width:100%;max-width:320px;border-radius:6px;margin-bottom:8px" /><div style="color:#666;font-size:12px;margin-bottom:6px">Geyser Park · erupts hourly</div><p style="margin:0 0 10px 0">Drillers looking for a warm-water swimming pool in 1937 accidentally tapped a pressurized aquifer, creating a geyser so powerful the town had to cap it with a valve. It's now set on a timer to erupt roughly on the hour at Geyser Park downtown — an easy stop with picnic tables nearby.</p><div style="margin-bottom:8px"><b>Address:</b> 39 W 1st S, Soda Springs, ID 83276</div><div style="margin-top:8px"><b>Nearby dining</b><ul style="margin:4px 0 0 0;padding-left:18px"><li><b>Caribou Jack's Trading Co &amp; BBQ</b> &mdash; Hardware store with an in-house BBQ cafe — Traeger-smoked meats and home-cooked sides.</li><li><b>Arctic Circle Restaurant</b> &mdash; Regional fast-food outpost — a reliable quick stop for burgers and shakes.</li><li><b>Enders Hotel &amp; Restaurant</b> &mdash; Historic hotel dining room downtown, known for classic American comfort food.</li></ul></div>]]></description>
+      <Point><coordinates>-111.600674,42.653575,0</coordinates></Point>
+    </Placemark>
+    <Placemark>
+      <name>7 · Hooper Springs Park</name>
+      <styleUrl>#midPin</styleUrl>
+      <description><![CDATA[<img src="https://iili.io/C6NHBje.jpg" style="width:100%;max-width:320px;border-radius:6px;margin-bottom:8px" /><div style="color:#666;font-size:12px;margin-bottom:6px">Government Dam Rd · naturally carbonated spring</div><p style="margin:0 0 10px 0">Hooper Spring was a documented stop on the Oregon and California Trails, where westbound emigrants paused to sample the naturally carbonated "soda" water the town is named for. A small stone pavilion still covers the spring today, and the shaded park around it makes a pleasant short break — about 2 miles north of the geyser, barely off the direct route.</p><div style="margin-bottom:8px"><b>Address:</b> 1805 Government Dam Rd, Soda Springs, ID 83276</div><div style="margin-top:8px;font-size:11px;color:#888">Photo reference: <a href="https://www.sodaspringsid.com/recreation/hooper_springs_park/index.php" target="_blank">City of Soda Springs</a></div>]]></description>
+      <Point><coordinates>-111.59412,42.672109,0</coordinates></Point>
+    </Placemark>
+    <Placemark>
+      <name>8 · Bear River Massacre Site</name>
+      <styleUrl>#midPin</styleUrl>
+      <description><![CDATA[<img src="https://iili.io/C6NHCZu.jpg" style="width:100%;max-width:320px;border-radius:6px;margin-bottom:8px" /><div style="color:#666;font-size:12px;margin-bottom:6px">US-91 near Preston · National Historic Landmark</div><p style="margin:0 0 10px 0">On January 29, 1863, California Volunteer troops attacked a Northwestern Shoshone winter camp along the Bear River, killing an estimated 250–400 men, women, and children — more than at Sand Creek or Wounded Knee. A 1932 monument and newer interpretive panels, developed with the Northwestern Band of the Shoshone Nation, mark the bluff overlooking the site, directly on the route into Preston.</p><div style="margin-bottom:8px"><b>Address:</b> US-91, Preston, ID 83263</div><div style="margin-top:8px;font-size:11px;color:#888">Photo reference: <a href="https://bearriverheritage.com/item/bear-river-massacre-site/" target="_blank">Bear River Heritage Area</a></div>]]></description>
+      <Point><coordinates>-111.877719,42.110151,0</coordinates></Point>
+    </Placemark>
+    <Placemark>
+      <name>9 · Preston — Historic Downtown</name>
+      <styleUrl>#midPin</styleUrl>
+      <description><![CDATA[<img src="https://iili.io/C6NHxGj.jpg" style="width:100%;max-width:320px;border-radius:6px;margin-bottom:8px" /><div style="color:#666;font-size:12px;margin-bottom:6px">Franklin County seat · "Napoleon Dynamite"</div><p style="margin:0 0 10px 0">Preston's unassuming downtown — including the Franklin County Courthouse, the old Deseret Industries thrift store, and Preston High School — became familiar to millions after Napoleon Dynamite was filmed here on a shoestring budget in 2003. Fans still stop for tater tots and to spot Rex Kwon Do landmarks.</p><div style="margin-bottom:8px"><b>Address:</b> 36 S State St, Preston, ID 83263</div><div style="margin-top:8px;font-size:11px;color:#888">Photo reference: <a href="https://grahmsguide.com/napoleon-dynamite-filming-locations/" target="_blank">Grahm's Guide</a></div>]]></description>
+      <Point><coordinates>-111.876716,42.095438,0</coordinates></Point>
+    </Placemark>
+    <Placemark>
+      <name>10 · Bear River Hot Springs</name>
+      <styleUrl>#springPin</styleUrl>
+      <description><![CDATA[<img src="https://iili.io/C6NHYwF.jpg" style="width:100%;max-width:320px;border-radius:6px;margin-bottom:8px" /><div style="color:#666;font-size:12px;margin-bottom:6px">Riverside soaking pools · short detour from Preston</div><p style="margin:0 0 10px 0">A low-key, family-owned hot springs resort on the banks of the Bear River, with mineral soaking pools open year-round (hours vary by day). A short detour northeast of downtown Preston, it's a quieter alternative to Lava for a soak on the way home.</p><div style="margin-bottom:8px"><b>Address:</b> 3696 N 1600 E, Preston, ID 83263</div><div style="margin-top:8px;font-size:11px;color:#888">Photo reference: <a href="https://www.bearriverhotsprings.com/" target="_blank">Illustrative rendering — exact pools not photographed</a></div>]]></description>
+      <Point><coordinates>-111.83777,42.16446,0</coordinates></Point>
+    </Placemark>
+    <Placemark>
+      <name>11 · Maple Grove Hot Springs</name>
+      <styleUrl>#springPin</styleUrl>
+      <description><![CDATA[<img src="https://iili.io/C6NHlna.jpg" style="width:100%;max-width:320px;border-radius:6px;margin-bottom:8px" /><div style="color:#666;font-size:12px;margin-bottom:6px">Riverside pools &amp; glamping · via ID-34 from Preston</div><p style="margin:0 0 10px 0">Tucked into a river canyon along ID-34, Maple Grove is a 45-acre soaking retreat with four to six riverside mineral pools, a beach, hiking trails, and glamping yurts and cabins. It's farther off-route than the other springs — worth it only if there's time for the full detour.</p><div style="margin-bottom:8px"><b>Address:</b> 11386 Oneida Narrows Rd, Thatcher, ID 83283</div><div style="margin-top:8px;font-size:11px;color:#888">Photo reference: <a href="https://www.maplegrovesprings.com/" target="_blank">Illustrative rendering — exact pools not photographed</a></div>]]></description>
+      <Point><coordinates>-111.707924,42.30906,0</coordinates></Point>
+    </Placemark>
+    <Placemark>
+      <name>12 · Logan Tabernacle</name>
+      <styleUrl>#midPin</styleUrl>
+      <description><![CDATA[<img src="https://iili.io/C6NHz6x.jpg" style="width:100%;max-width:320px;border-radius:6px;margin-bottom:8px" /><div style="color:#666;font-size:12px;margin-bottom:6px">Main Street · Cache Valley</div><p style="margin:0 0 10px 0">Built between 1878 and 1891 from local limestone and timber, the Logan Tabernacle has served as a community gathering place for well over a century. It sits at the heart of Logan's walkable downtown in Cache Valley, with the larger Logan Temple visible on the bench above.</p><div style="margin-bottom:8px"><b>Address:</b> 50 N Main St, Logan, UT 84321</div><div style="margin-top:8px"><b>Nearby dining</b><ul style="margin:4px 0 0 0;padding-left:18px"><li><b>Le Nonne Ristorante Italiano</b> &mdash; Northern Italian cooking and handmade gnocchi, 129 N 100 East. <a href="https://www.cityweekly.net/utah/second-to-nonne-from-northern-italy-to-northern-utah-thereandrsquos-no-better-gnocchi-than-micheliandrsquos/Content?oid=2128297" target="_blank">(City Weekly)</a></li><li><b>Elements Restaurant</b> &mdash; Fine dining at Riverwoods, 35 E 640 South. <a href="https://www.cityweekly.net/utah/elements-fine-dining-in-logan/Content?oid=2153126" target="_blank">(City Weekly)</a></li><li><b>Cafe Sabor</b> &mdash; Tex-Mex in a former train depot, 600 W Center St.</li></ul></div>]]></description>
+      <Point><coordinates>-111.834766,41.73242,0</coordinates></Point>
+    </Placemark>
+    <Placemark>
+      <name>13 · Box Elder Tabernacle</name>
+      <styleUrl>#midPin</styleUrl>
+      <description><![CDATA[<img src="https://iili.io/C6NHT3Q.jpg" style="width:100%;max-width:320px;border-radius:6px;margin-bottom:8px" /><div style="color:#666;font-size:12px;margin-bottom:6px">Main Street, Brigham City</div><p style="margin:0 0 10px 0">The original Box Elder Tabernacle burned in 1896 and was rebuilt within a year; its distinctive candlestick-topped tower and spires make it one of the most photographed buildings in northern Utah. Brigham City is the last stop before this drive rejoins I-15 south toward Murray.</p><div style="margin-bottom:8px"><b>Address:</b> 251 S Main St, Brigham City, UT 84302</div><div style="margin-top:8px;font-size:11px;color:#888">Photo reference: <a href="https://jacobbarlow.com/2018/09/24/box-elder-tabernacle/" target="_blank">jacobbarlow.com</a></div>]]></description>
+      <Point><coordinates>-112.014901,41.505424,0</coordinates></Point>
+    </Placemark>
+    <Placemark>
+      <name>14 · Ogden — Union Station</name>
+      <styleUrl>#midPin</styleUrl>
+      <description><![CDATA[<img src="https://iili.io/C6NHA8B.jpg" style="width:100%;max-width:320px;border-radius:6px;margin-bottom:8px" /><div style="color:#666;font-size:12px;margin-bottom:6px">Historic 25th Street · railroad, gun &amp; car museums</div><p style="margin:0 0 10px 0">Opened in 1924 after fire destroyed its predecessor, Union Station once saw dozens of trains a day pass through Ogden's rail junction connecting the transcontinental line. The restored depot now houses the Utah State Railroad, Browning Firearms, and Browning-Kimball classic-car museums beneath its grand arched windows, with the shops, galleries, and restaurants of historic 25th Street a short walk away — a good last stretch-the-legs stop before the freeway home.</p><div style="margin-bottom:8px"><b>Address:</b> 2501 Wall Ave, Ogden, UT 84401</div><div style="margin-top:8px"><b>Nearby dining</b><ul style="margin:4px 0 0 0;padding-left:18px"><li><b>Hearth on 25th</b> &mdash; Wood-fired, seasonal New American plates, 195 25th St. <a href="https://www.cityweekly.net/utah/hearth/Content?oid=3027284" target="_blank">(City Weekly)</a></li><li><b>Slackwater Pub &amp; Pizzeria</b> &mdash; Craft beer and wood-fired pizza, 1895 Washington Blvd. <a href="https://www.cityweekly.net/utah/slackwater-pub-and-pizzeria/Content?oid=2158777" target="_blank">(City Weekly)</a></li><li><b>La Crepe OG</b> &mdash; Sweet and savory crepes, 2401 Kiesel Ave. <a href="https://www.cityweekly.net/utah/the-thrill-chill-cult/Content?oid=16969345" target="_blank">(City Weekly)</a></li></ul></div>]]></description>
+      <Point><coordinates>-111.97972,41.22083,0</coordinates></Point>
+    </Placemark>
+  </Folder>
+</Document>
+</kml>
