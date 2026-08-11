@@ -807,6 +807,11 @@ STOPS.forEach((s,i)=>{
   const sourceCell = s.credit ? ` <span style="color:#9a917f">(<a href="${s.creditUrl}" style="color:#9a917f;text-decoration:none">${s.credit}</a>)</span>` : "";
   const badgeBg = i===0 ? '#5b6b3a' : (s.pinStyle==="spring" ? 'var(--gold)' : '#b8502a');
   const badgeRadius = s.pinStyle==="spring" ? '6px' : '50%';
+  const diningCell = (s.dining && s.dining.length) ? `
+    <div style="margin-top:2.5mm;padding-top:2mm;border-top:1px dashed #d8cdb0">
+      <div style="font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#b8502a;font-weight:600;margin-bottom:1.2mm">Nearby dining</div>
+      ${s.dining.map(d=>`<div style="font-size:10.5px;line-height:1.4;margin-bottom:1mm"><strong>${d.name}</strong> — ${d.desc}${d.credit?` <span style="color:#9a917f">(<a href="${d.creditUrl||'#'}" style="color:#9a917f;text-decoration:none">${d.credit}</a>)</span>`:''}</div>`).join('')}
+    </div>` : '';
   tr.innerHTML = `
     <td style="vertical-align:top;padding:4mm 3mm;width:10mm">
       <div style="width:24px;height:24px;border-radius:${badgeRadius};background:${badgeBg};color:#fff;font-family:'Fraunces',serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center">${i===0?'S':i}</div>
@@ -815,7 +820,7 @@ STOPS.forEach((s,i)=>{
       <div style="font-family:'Fraunces',serif;font-weight:600;font-size:15px;line-height:1.2">${s.name}</div>
       <div style="font-size:10.5px;color:#7a7468;margin-top:2px">${s.address}</div>
     </td>
-    <td style="vertical-align:top;padding:4mm 3mm;font-size:11.5px;line-height:1.5;color:#3a352d">${s.note}${sourceCell}</td>`;
+    <td style="vertical-align:top;padding:4mm 3mm;font-size:11.5px;line-height:1.5;color:#3a352d">${s.note}${sourceCell}${diningCell}</td>`;
   tbl.appendChild(tr);
 });
 // return row
