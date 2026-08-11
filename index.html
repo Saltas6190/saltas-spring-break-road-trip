@@ -287,10 +287,10 @@
     </header>
 
     <div class="route-meta">
-      <div class="stat"><span class="v">14</span><span class="l">Stops</span></div>
+      <div class="stat"><span class="v">15</span><span class="l">Stops</span></div>
       <div class="stat"><span class="v">161.7 mi</span><span class="l">Outbound</span></div>
-      <div class="stat"><span class="v">195.9 mi</span><span class="l">Return</span></div>
-      <div class="stat"><span class="v">~7h 15m</span><span class="l">Drive time*</span></div>
+      <div class="stat"><span class="v">202.7 mi</span><span class="l">Return</span></div>
+      <div class="stat"><span class="v">~7h 30m</span><span class="l">Drive time*</span></div>
     </div>
 
     <ol class="stops" id="stops"></ol>
@@ -375,14 +375,14 @@ const STOPS = [
   },
   {
     role:"mid",
-    name:"Malad City — Oneida Pioneer Museum",
+    name:"Malad: Lottery Ticket Stop",
     lat:42.186055, lng:-112.246200,
-    tag:"27 Bannock St · Oneida County seat",
-    desc:"The seat of Oneida County, with a pioneer museum and a well-kept historic downtown.",
+    tag:"27 Bannock St · first town over the Idaho line",
+    desc:"The first town across the Idaho line — and the closest place for Utahns to buy a lottery ticket, since Utah is one of only a few states with no lottery at all.",
     address:"27 Bannock St, Malad City, ID 83252",
-    note:"Malad City was settled in the 1860s largely by Welsh immigrants — it's said to have more residents of Welsh descent per capita than anywhere in the U.S. outside Wales. The Oneida Pioneer Museum documents that Welsh, Mormon-pioneer, and Shoshone history, and the 1917 Oneida County Courthouse anchors the small historic downtown a block away.",
-    credit:"Idaho Heritage Trust",
-    creditUrl:"https://www.idahoheritagetrust.org/projects-grants/oneida-pioneer-museum/"
+    note:"Utah has no state lottery, so whenever Powerball or Mega Millions climbs toward a big jackpot, Utahns make the short drive north across the border to Malad City to buy tickets — gas stations here, especially KJ's Kwik Stop on Main Street, regularly see lines of Utah plates. Malad City is also the seat of Oneida County, settled in the 1860s largely by Welsh immigrants — it's said to have more residents of Welsh descent per capita than anywhere in the U.S. outside Wales. The Oneida Pioneer Museum and 1917 courthouse anchor its small historic downtown a block away.",
+    credit:"Fox13",
+    creditUrl:"https://www.fox13now.com/news/local-news/northern-utah/utahns-join-in-to-bet-their-luck-for-largest-ever-1-3-billion-powerball"
   },
   {
     role:"mid",
@@ -424,7 +424,8 @@ const STOPS = [
     dining:[
       { name:"78 Main Street Eatery", desc:"Classic American comfort food — burgers, sandwiches, hearty breakfasts — with a true small-town vibe." },
       { name:"Portneuf Grille & Lounge", desc:"Northwest-inspired fine dining at Riverside Hot Springs Inn; fresh seafood and aged prime steak." },
-      { name:"Riverwalk Thai", desc:"Family-owned Thai food in a converted former gas station near the hot springs." }
+      { name:"Riverwalk Thai", desc:"Family-owned Thai food in a converted former gas station near the hot springs." },
+      { name:"Wagon Wheel Bar", desc:"A lively Main Street bar with pub fare and a full bar — the classic spot for a drink after soaking in the pools.", credit:"Tripadvisor", creditUrl:"https://www.tripadvisor.com/Restaurant_Review-g35511-d516732-Reviews-Wagon_Wheel_Lounge-Lava_Hot_Springs_Idaho.html" }
     ]
   },
   {
@@ -433,9 +434,9 @@ const STOPS = [
     lat:42.653575, lng:-111.600674,
     tag:"Geyser Park · erupts hourly",
     pinStyle:"spring",
-    desc:"The world's only captive, human-triggered geyser, erupting roughly 100 feet on the hour.",
+    desc:"The world's only captive, human-triggered geyser, erupting roughly 100 feet on the hour — in a town first known as an Oregon Trail rest stop, later formally settled by Mormon pioneers.",
     address:"39 W 1st S, Soda Springs, ID 83276",
-    note:"Drillers looking for a warm-water swimming pool in 1937 accidentally tapped a pressurized aquifer, creating a geyser so powerful the town had to cap it with a valve. It's now set on a timer to erupt roughly on the hour at Geyser Park downtown — an easy stop with picnic tables nearby.",
+    note:"Soda Springs was settled long before the geyser existed. Native Americans and fur trappers knew its bubbling mineral springs for generations, and it became a well-known 'Oregon Trail Oasis' where 1800s emigrants paused to bathe, drink the naturally carbonated water, and rest. Colonel Patrick Connor established an early army post and settlement, Morristown, near here in 1863; in 1870, Brigham Young formally founded present-day Soda Springs just east of that site as one of his planned Mormon colonies. Decades later, in 1937, drillers looking for a warm-water swimming pool accidentally tapped a pressurized aquifer, creating the geyser so powerful the town had to cap it with a valve — it's now set on a timer to erupt roughly on the hour at Geyser Park downtown.",
     credit:"Visit Soda Springs",
     creditUrl:"https://www.visitsodasprings.com/",
     dining:[
@@ -460,11 +461,11 @@ const STOPS = [
     name:"Bear River Massacre Site",
     lat:42.110151, lng:-111.877719,
     tag:"US-91 near Preston · National Historic Landmark",
-    desc:"A solemn overlook and monument marking the deadliest single episode of violence between the U.S. Army and Native Americans in the West.",
+    desc:"A solemn overlook and monument marking the deadliest single episode of violence between the U.S. Army and Native Americans in the West — fought between Colonel Patrick Edward Connor's California Volunteers and the Northwestern Shoshone led by Chief Bear Hunter.",
     address:"US-91, Preston, ID 83263",
-    note:"On January 29, 1863, California Volunteer troops attacked a Northwestern Shoshone winter camp along the Bear River, killing an estimated 250–400 men, women, and children — more than at Sand Creek or Wounded Knee. A 1932 monument and newer interpretive panels, developed with the Northwestern Band of the Shoshone Nation, mark the bluff overlooking the site, directly on the route into Preston.",
-    credit:"Bear River Heritage Area",
-    creditUrl:"https://bearriverheritage.com/item/bear-river-massacre-site/"
+    note:"On January 29, 1863, roughly 200 California Volunteer troops under Colonel Patrick Edward Connor attacked a Northwestern Shoshone winter camp led by Chief Bear Hunter, encamped along the Bear River. Estimates of Shoshone deaths range from about 250 up to 400–500 men, women, and children, while the Army reported 21–23 soldiers killed and roughly 50 more wounded — a toll higher than at Sand Creek or Wounded Knee, making it the deadliest single episode of violence between the U.S. Army and Native Americans in the West. A 1932 monument and newer interpretive panels, developed with the Northwestern Band of the Shoshone Nation, mark the bluff overlooking the site, directly on the route into Preston.",
+    credit:"Wikipedia",
+    creditUrl:"https://en.wikipedia.org/wiki/Bear_River_Massacre"
   },
   {
     role:"mid",
@@ -505,14 +506,14 @@ const STOPS = [
   },
   {
     role:"mid",
-    name:"Logan Tabernacle",
+    name:"Logan",
     lat:41.732420, lng:-111.834766,
     tag:"Main Street · Cache Valley",
-    desc:"A grand 1878–1891 limestone tabernacle anchoring Logan's historic Main Street.",
+    desc:"Cache Valley's college town, settled by Mormon pioneers in the 1850s in a valley named decades earlier by fur trappers and mountain men who cached their pelts here.",
     address:"50 N Main St, Logan, UT 84321",
-    note:"Built between 1878 and 1891 from local limestone and timber, the Logan Tabernacle has served as a community gathering place for well over a century. It sits at the heart of Logan's walkable downtown in Cache Valley, with the larger Logan Temple visible on the bench above.",
-    credit:"Bear River Heritage Area",
-    creditUrl:"https://bearriverheritage.com/item/logan-tabernacle/",
+    note:"Cache Valley gets its name from the fur-trapping era of the 1820s: mountain men working for outfits like William Ashley's Rocky Mountain Fur Company wintered in the valley and cached — buried or hid — their beaver pelts and supplies here rather than hauling them out, and the valley hosted a famous trappers' rendezvous in 1826. Early arrivals had called it \"Willow Valley\" for its riverbank willows, but the cache name stuck. Mormon pioneers settled the valley permanently in the 1850s, founding Logan and, between 1878 and 1891, building the grand limestone Logan Tabernacle that still anchors Main Street today, with the larger Logan Temple visible on the bench above.",
+    credit:"Wikipedia",
+    creditUrl:"https://en.wikipedia.org/wiki/Cache_Valley",
     dining:[
       { name:"Le Nonne Ristorante Italiano", desc:"Northern Italian cooking and handmade gnocchi, 129 N 100 East.", credit:"City Weekly", creditUrl:"https://www.cityweekly.net/utah/second-to-nonne-from-northern-italy-to-northern-utah-thereandrsquos-no-better-gnocchi-than-micheliandrsquos/Content?oid=2128297" },
       { name:"Elements Restaurant", desc:"Fine dining at Riverwoods, 35 E 640 South.", credit:"City Weekly", creditUrl:"https://www.cityweekly.net/utah/elements-fine-dining-in-logan/Content?oid=2153126" },
@@ -521,14 +522,14 @@ const STOPS = [
   },
   {
     role:"mid",
-    name:"Box Elder Tabernacle",
+    name:"Brigham City",
     lat:41.505424, lng:-112.014901,
     tag:"Main Street, Brigham City",
-    desc:"An 1890 tabernacle famous for its 15 hand-carved \"candlestick\" spires, on a poplar-lined Main Street.",
+    desc:"Home to the 1890 Box Elder Tabernacle, famous for its 15 hand-carved \"candlestick\" spires — and just down the road from legendary Maddox Ranch House, closed on this Sunday.",
     address:"251 S Main St, Brigham City, UT 84302",
-    note:"The original Box Elder Tabernacle burned in 1896 and was rebuilt within a year; its distinctive candlestick-topped tower and spires make it one of the most photographed buildings in northern Utah. Brigham City is the last stop before this drive rejoins I-15 south toward Murray.",
-    credit:"jacobbarlow.com",
-    creditUrl:"https://jacobbarlow.com/2018/09/24/box-elder-tabernacle/"
+    note:"The original Box Elder Tabernacle burned in 1896 and was rebuilt within a year; its distinctive candlestick-topped tower and spires make it one of the most photographed buildings in northern Utah, anchoring Brigham City's poplar-lined Main Street. Just south in nearby Perry, Maddox Ranch House Restaurant has served its famous fried chicken and steaks since 1949 — but it's closed Sundays and Mondays, so it won't be an option on this Sunday drive. Brigham City is the last stop before this drive rejoins I-15 south toward Murray.",
+    credit:"Maddox Ranch House",
+    creditUrl:"https://maddoxfinefood.com/"
   },
   {
     role:"mid",
@@ -537,7 +538,7 @@ const STOPS = [
     tag:"Historic 25th Street · railroad, gun & car museums",
     desc:"This 1924 Spanish Colonial Revival depot anchors historic 25th Street, once one of the West's busiest rail junctions. Today it houses railroad, firearms, and classic-car museums under grand arched windows — a quick, walkable stop with easy access to Ogden's best restaurants and shops.",
     address:"2501 Wall Ave, Ogden, UT 84401",
-    note:"Opened in 1924 after fire destroyed its predecessor, Union Station once saw dozens of trains a day pass through Ogden's rail junction connecting the transcontinental line. The restored depot now houses the Utah State Railroad, Browning Firearms, and Browning-Kimball classic-car museums beneath its grand arched windows, with the shops, galleries, and restaurants of historic 25th Street a short walk away — a good last stretch-the-legs stop before the freeway home.",
+    note:"Opened in 1924 after fire destroyed its predecessor, Union Station once saw dozens of trains a day pass through Ogden's rail junction connecting the transcontinental line. The restored depot now houses the Utah State Railroad, Browning Firearms, and Browning-Kimball classic-car museums beneath its grand arched windows, with the shops, galleries, and restaurants of historic 25th Street a short walk away — a good last stretch-the-legs stop before the freeway home. Ogden's rail yards also drew large numbers of Greek immigrants in the early 1900s, who lived and worked section and steel gangs on the Oregon Short Line and Union Pacific out of the city — part of the same wave of Greek railroad and mining labor that built Greektowns across Utah.",
     credit:"David Jay Fullmer, CC BY-SA 4.0, via Wikimedia Commons",
     creditUrl:"https://commons.wikimedia.org/wiki/File:Ogden_Union_Station.jpg",
     dining:[
@@ -545,6 +546,18 @@ const STOPS = [
       { name:"Slackwater Pub & Pizzeria", desc:"Craft beer and wood-fired pizza, 1895 Washington Blvd.", credit:"City Weekly", creditUrl:"https://www.cityweekly.net/utah/slackwater-pub-and-pizzeria/Content?oid=2158777" },
       { name:"La Crepe OG", desc:"Sweet and savory crepes, 2401 Kiesel Ave.", credit:"City Weekly", creditUrl:"https://www.cityweekly.net/utah/the-thrill-chill-cult/Content?oid=16969345" }
     ]
+  },
+  {
+    role:"mid",
+    name:"Eaglewood Golf Course",
+    lat:40.831940, lng:-111.888103,
+    tag:"1110 E Eaglewood Dr · North Salt Lake",
+    desc:"Where John Saltas and team took 2nd Place Net in the annual Skedros Memorial Greek Open Golf Tournament — and where, just last Sunday, Pete made birdie on the 18th hole.",
+    address:"1110 E Eaglewood Dr, North Salt Lake, UT 84054",
+    note:"Where John Saltas and team took 2nd Place Net in the annual Skedros Memorial Greek Open Golf Tournament. And where just last Sunday, Pete made birdie on the 18th hole.",
+    credit:"Illustrative rendering — exact course not photographed",
+    creditUrl:"https://eaglewoodgolf.com/",
+    img:"img/stop-eaglewood.jpg"
   }
 ];
 
@@ -696,7 +709,7 @@ bearLakeMarker.bindPopup(`
 const stopsEl = document.getElementById("stops");
 const arrow = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
 
-const LEG_DISTANCES = {1:"75 mi",2:"40 mi",3:"9.9 mi",4:"25.8 mi",5:"11.4 mi",6:"22.1 mi",7:"1.7 mi",8:"52.9 mi",9:"1.0 mi",10:"7 mi",11:"21 mi",12:"26.9 mi",13:"24.3 mi",14:"25 mi"};
+const LEG_DISTANCES = {1:"75 mi",2:"40 mi",3:"9.9 mi",4:"25.8 mi",5:"11.4 mi",6:"22.1 mi",7:"1.7 mi",8:"52.9 mi",9:"1.0 mi",10:"7 mi",11:"21 mi",12:"26.9 mi",13:"24.3 mi",14:"25 mi",15:"32.9 mi"};
 const DETOUR_NOTES = {
   10:"≈ 7 mi detour from Preston",
   11:"≈ 21 mi detour from Preston via Hwy 34 (skip Bear River Hot Springs to go straight here)",
@@ -734,8 +747,8 @@ STOPS.forEach((s,i)=>{
       <div class="fork-head">Two ways home from Soda Springs</div>
       <div class="fork-row"><span class="lbl">Murray → Lava Hot Springs</span><b>2h 58m<i>161.7 mi</i></b></div>
       <div class="fork-row"><span class="lbl">Lava Hot Springs → Soda Springs</span><b>27m<i>22.1 mi</i></b></div>
-      <div class="fork-row"><span class="lbl"><span class="sw-line" style="background:var(--azure)"></span>Soda Springs → Murray, via Logan & Ogden</span><b>3h 44m<i>173.8 mi</i></b></div>
-      <div class="fork-row"><span class="lbl"><span class="sw-line" style="background:var(--teal)"></span>Soda Springs → Murray, via Bear Lake</span><b>4h 23m<i>194.1 mi</i></b></div>
+      <div class="fork-row"><span class="lbl"><span class="sw-line" style="background:var(--azure)"></span>Soda Springs → Murray, via Logan & Ogden</span><b>4h 05m<i>180.6 mi</i></b></div>
+      <div class="fork-row"><span class="lbl"><span class="sw-line" style="background:var(--teal)"></span>Soda Springs → Murray, via Bear Lake</span><b>4h 44m<i>200.9 mi</i></b></div>
       <p class="fork-note">The Bear Lake option trades Preston and the Bear River Massacre site for Garden City's turquoise shoreline and a run down Logan Canyon — about 20 miles and 40 minutes longer, rejoining the original route at Logan. Neither total includes the optional gold-pin detours to Bear River Hot Springs or Maple Grove Hot Springs near Preston, which add their own extra miles if you take them.</p>`;
     stopsEl.appendChild(forkLi);
   }
@@ -753,7 +766,7 @@ retLi.dataset.role = "end";
     <div class="badge">↵</div>
     <div class="body">
       <div class="name">Return to Murray, UT</div>
-      <div class="desc">From Ogden's Union Station south to Glencrest Road — about 42 mi, roughly 45 min.</div>
+      <div class="desc">From Eaglewood Golf Course south to Glencrest Road — about 15.9 mi, roughly 24 min.</div>
     </div>
     <a class="dir-btn" href="${dirUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${arrow}Directions</a>`;
 }
@@ -834,7 +847,7 @@ rtr.innerHTML = `
     <div style="font-family:'Fraunces',serif;font-weight:600;font-size:15px;line-height:1.2">Return to Murray, UT</div>
     <div style="font-size:10.5px;color:#7a7468;margin-top:2px">4748 South Glencrest Road, Murray, UT 84107</div>
   </td>
-  <td style="vertical-align:top;padding:4mm 3mm;font-size:11.5px;line-height:1.5;color:#3a352d">The dashed blue route on the map traces the drive back from Ogden's Union Station down I-15 to Murray — about 42 mi, roughly 45 min.</td>`;
+  <td style="vertical-align:top;padding:4mm 3mm;font-size:11.5px;line-height:1.5;color:#3a352d">The dashed blue route on the map traces the drive back from Eaglewood Golf Course down I-15 to Murray — about 15.9 mi, roughly 24 min.</td>`;
 tbl.appendChild(rtr);
 </script>
 </body>

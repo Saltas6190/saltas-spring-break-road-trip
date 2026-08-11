@@ -105,7 +105,7 @@ route_placemarks = f"""
 MAP_DESCRIPTION = (
     "Utah \u00b7 Idaho \u2014 Sunday Drive. North on I-15 through Malad and McCammon to the hot pools, "
     "then home by Soda Springs, Preston, and Logan \u2014 Sunday, August 16. Gold-marked stops are soaking springs. "
-    "14 stops \u00b7 161.7 mi outbound \u00b7 195.9 mi return \u00b7 ~7h 15m total drive time."
+    "15 stops \u00b7 161.7 mi outbound \u00b7 202.7 mi return \u00b7 ~7h 30m total drive time."
 )
 
 kml = f"""<?xml version="1.0" encoding="UTF-8"?>
@@ -136,3 +136,23 @@ out_path = "/home/user/workspace/roadtrip/Saltas_Spring_Break_Road_Trip.kml"
 with open(out_path, "w", encoding="utf-8") as f:
     f.write(kml)
 print("wrote", out_path, len(kml), "bytes")
+
+# Stops-only variant (no route lines) for Google My Maps import as a single layer of pins/photos.
+kml_stops_only = f"""<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+  <name>Saltas Spring Break \u2014 Stops with Photos</name>
+  <description><![CDATA[{MAP_DESCRIPTION}]]></description>
+  <Style id="startPin"><IconStyle><Icon><href>{ICONS['start']}</href></Icon></IconStyle></Style>
+  <Style id="springPin"><IconStyle><Icon><href>{ICONS['spring']}</href></Icon></IconStyle></Style>
+  <Style id="midPin"><IconStyle><Icon><href>{ICONS['mid']}</href></Icon></IconStyle></Style>
+
+  {"".join(placemarks)}
+</Document>
+</kml>
+"""
+
+out_path2 = "/home/user/workspace/roadtrip/Saltas_Spring_Break_Stops_With_Photos.kml"
+with open(out_path2, "w", encoding="utf-8") as f:
+    f.write(kml_stops_only)
+print("wrote", out_path2, len(kml_stops_only), "bytes")
