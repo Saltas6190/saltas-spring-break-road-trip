@@ -1,0 +1,36 @@
+HOW TO OPEN THIS MAP
+=====================
+
+This ZIP file contains one file: "Murray to Lava Hot Springs Road Trip.html"
+It is the full interactive map (pins, popups, photos) — it just needs to be
+unzipped and opened in a web browser, not an email or file-preview app.
+
+ON AN IPHONE / IPAD
+1. Tap the attachment to download the ZIP, then tap it again to unzip it
+   (Files app will do this automatically).
+2. Find "Murray to Lava Hot Springs Road Trip.html" in the Files app.
+3. Tap and hold the file, choose "Share," then choose "Safari" (or any
+   browser icon) from the share sheet. If Safari isn't listed, tap "Open in..."
+   and pick a browser.
+
+ON AN ANDROID PHONE
+1. Tap the attachment to download the ZIP. Most phones unzip it automatically
+   into your Downloads or Files app — if not, tap the ZIP to extract it.
+2. Open the Files app, find "Murray to Lava Hot Springs Road Trip.html."
+3. Tap it, and if asked which app to open it with, choose Chrome (or any
+   browser).
+
+ON A COMPUTER (WINDOWS OR MAC)
+1. Download the ZIP and double-click it to unzip.
+2. Double-click "Murray to Lava Hot Springs Road Trip.html."
+   It should open automatically in your default web browser.
+   If it opens as a page of code instead of the map, right-click the file,
+   choose "Open with," and pick Chrome, Safari, or Edge.
+
+WHY THIS MATTERS
+Some email apps try to "preview" HTML files directly inside the email and
+block the interactive parts for safety, which can make the map look blank
+or broken. Unzipping the file first and opening it directly in a real
+browser avoids that problem entirely. No login, no account, and no
+internet connection needed once it's downloaded — everything (map tiles
+need internet, but all photos and pins) are built into the single file.
