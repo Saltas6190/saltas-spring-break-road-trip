@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Murray to Lava Hot Springs Loop — Family Road Trip</title>
+<meta name="description" content="A printable, interactive road-trip map: Murray, Utah to Lava Hot Springs, Idaho and back via Malad, McCammon, Soda Springs, Preston, and Logan." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+  :root{
+    --ink:#1c1b19;
+    --paper:#f5f0e3;
+    --paper-2:#ece2c9;
+    --marble:#fbf8f1;
+    --azure:#2b6ca0;
+    --azure-deep:#123f5c;
+    --olive:#5b6b3a;
+    --terracotta:#b8502a;
+    --teal:#2a7f7e;
+    --gold:#c8a04a;
+    --line:#dcd0af;
+    --shadow:0 10px 30px rgba(28,27,25,.12), 0 2px 6px rgba(28,27,25,.08);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:"Inter",system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+  }
+
+  .app{display:grid;grid-template-columns:400px 1fr;height:100vh;width:100vw}
+
+  /* ---------- Sidebar ---------- */
+  .sidebar{
+    background:var(--marble);
+    border-right:1px solid var(--line);
+    overflow-y:auto;
+    display:flex;flex-direction:column;
+    position:relative;z-index:1000;
+  }
+  .sidebar::-webkit-scrollbar{width:8px}
+  .sidebar::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+
+  .masthead{
+    padding:28px 26px 20px;border-bottom:1px solid var(--line);
+    background:radial-gradient(120% 80% at 0% 0%, rgba(200,160,74,.18), transparent 60%), var(--marble);
+  }
+  .eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--terracotta);font-weight:600;margin-bottom:10px}
+  .masthead h1{font-family:"Fraunces",serif;font-weight:600;font-size:27px;line-height:1.08;letter-spacing:-.01em;margin-bottom:10px}
+  .masthead h1 em{font-style:italic;color:var(--azure-deep)}
+  .masthead p{font-size:13px;line-height:1.55;color:#4a463f}
+
+  .route-meta{display:flex;gap:16px;padding:16px 26px;background:var(--paper-2);border-bottom:1px solid var(--line)}
+  .route-meta .stat{display:flex;flex-direction:column;gap:2px}
+  .route-meta .stat .v{font-family:"Fraunces",serif;font-weight:600;font-size:17px}
+  .route-meta .stat .l{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:#7a7468}
+
+  .stops{padding:10px 16px 18px;list-style:none}
+  .stop{
+    display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:start;
+    padding:14px 12px;border-radius:12px;cursor:pointer;border:1px solid transparent;
+    transition:background .15s, border-color .15s;
+  }
+  .stop:hover{background:var(--paper-2)}
+  .stop.active{background:var(--paper-2);border-color:var(--gold)}
+  .stop + .stop{margin-top:2px}
+  .stop.return{border-top:1px dashed var(--line);margin-top:10px;padding-top:16px}
+  .stop.return .badge{background:var(--azure)}
+  .stop.leg-divider{border-top:1px dashed var(--line);margin-top:10px;padding-top:16px}
+
+  .badge{
+    width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-family:"Fraunces",serif;font-weight:600;font-size:14px;color:#fff;background:var(--terracotta);
+    box-shadow:0 2px 5px rgba(184,80,42,.4);flex-shrink:0;margin-top:2px;
+  }
+  .stop[data-role="start"] .badge{background:var(--olive);box-shadow:0 2px 5px rgba(91,107,58,.4)}
+  .stop[data-role="end"] .badge{background:var(--azure);box-shadow:0 2px 5px rgba(43,108,160,.4)}
+
+  .stop .body .name{font-family:"Fraunces",serif;font-weight:600;font-size:15.5px;line-height:1.22;margin-bottom:3px;letter-spacing:-.01em}
+  .stop .body .desc{font-size:12px;line-height:1.48;color:#5c564c}
+
+  .dir-btn{
+    align-self:center;border:1px solid var(--line);background:#fff;color:var(--azure-deep);
+    border-radius:999px;padding:6px 11px;font-size:11px;font-weight:600;text-decoration:none;white-space:nowrap;
+    display:inline-flex;align-items:center;gap:5px;transition:background .15s, color .15s;
+  }
+  .dir-btn:hover{background:var(--azure-deep);color:#fff;border-color:var(--azure-deep)}
+  .dir-btn svg{width:11px;height:11px}
+
+  .sidebar-foot{padding:18px 22px 22px;border-top:1px solid var(--line);background:var(--marble);margin-top:auto}
+  .full-route-btn{
+    display:flex;align-items:center;justify-content:center;gap:9px;width:100%;padding:14px 16px;
+    border:none;border-radius:12px;background:var(--terracotta);color:#fff;
+    font-family:"Inter",sans-serif;font-weight:700;font-size:14px;text-decoration:none;cursor:pointer;
+    box-shadow:0 6px 16px rgba(184,80,42,.32);transition:transform .12s, background .15s;
+  }
+  .full-route-btn:hover{background:#98421f;transform:translateY(-1px)}
+  .full-route-btn svg{width:16px;height:16px}
+  .print-btn{
+    margin-top:10px;width:100%;padding:12px 16px;border:1px solid var(--line);border-radius:12px;
+    background:#fff;color:var(--ink);font-family:"Inter",sans-serif;font-weight:600;font-size:13px;
+    cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .15s;
+  }
+  .print-btn:hover{background:var(--paper-2)}
+  .print-btn svg{width:15px;height:15px}
+  .hint{font-size:11px;line-height:1.5;color:#7a7468;margin-top:10px;text-align:center}
+
+  /* ---------- Map ---------- */
+  #map{height:100%;width:100%;background:var(--paper-2);position:relative}
+  .leaflet-control-zoom a{
+    background:#fff !important;color:var(--ink) !important;
+    border:1px solid var(--line) !important;box-shadow:0 2px 6px rgba(0,0,0,.08) !important;
+  }
+  .leaflet-control-zoom a:hover{background:var(--paper-2) !important}
+  .leaflet-bar{box-shadow:none !important}
+
+  .legend{
+    position:absolute;bottom:18px;left:18px;z-index:999;
+    background:rgba(251,248,241,.96);backdrop-filter:blur(4px);border:1px solid var(--line);
+    border-radius:12px;padding:11px 14px;box-shadow:var(--shadow);font-size:11.5px;display:flex;flex-direction:column;gap:6px;
+  }
+  .legend .row{display:flex;align-items:center;gap:8px}
+  .legend .swatch{width:14px;height:14px;border-radius:50%;display:inline-block}
+  .legend .sw-line{height:4px;border-radius:2px;width:18px}
+
+  /* ---------- Marker pins ---------- */
+  .pin{
+    width:34px;height:34px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 10px rgba(0,0,0,.3);border:2px solid #fff;
+  }
+  .pin span{transform:rotate(45deg);font-family:"Fraunces",serif;font-weight:700;font-size:15px;color:#fff}
+  .pin.start{background:var(--olive)}
+  .pin.mid{background:var(--terracotta)}
+  .pin.end{background:var(--azure)}
+  .pin.return{background:var(--azure)}
+
+  /* ---------- Popups ---------- */
+  .leaflet-popup-content-wrapper{border-radius:14px;box-shadow:var(--shadow);border:1px solid var(--line);padding:0;overflow:hidden}
+  .leaflet-popup-content{margin:0;width:240px}
+  .pop-head{padding:13px 15px 9px;background:var(--paper-2);border-bottom:1px solid var(--line)}
+  .pop-tag{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--terracotta);font-weight:600;margin-bottom:4px}
+  .pop-head h3{font-family:"Fraunces",serif;font-weight:600;font-size:17px;line-height:1.15;letter-spacing:-.01em}
+  .pop-img{display:block;width:100%;height:120px;object-fit:cover;background:var(--paper-2)}
+  .pop-credit{padding:5px 15px 0;font-size:9.5px;letter-spacing:.03em;color:#9a9385;font-style:italic;text-align:right}
+  .pop-body{padding:11px 15px 6px}
+  .pop-body p{font-size:12.5px;line-height:1.5;color:#4a463f}
+  .pop-addr{padding:0 15px 11px;font-size:11px;color:#7a7468;font-style:italic}
+  .pop-foot{padding:0 15px 14px}
+  .pop-foot a{
+    display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#fff;
+    background:var(--azure-deep);text-decoration:none;padding:8px 13px;border-radius:999px;
+  }
+  .pop-foot a:hover{background:var(--azure)}
+  .pop-foot svg{width:12px;height:12px}
+
+  /* ---------- Mobile ---------- */
+  .menu-toggle{
+    display:none;position:absolute;top:14px;right:14px;z-index:1600;
+    background:#fff;border:1px solid var(--line);border-radius:10px;width:42px;height:42px;
+    align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--shadow);
+  }
+  .menu-toggle svg{width:20px;height:20px;color:var(--ink)}
+
+  @media (max-width:820px){
+    .app{grid-template-columns:1fr;display:block;height:100vh;position:relative}
+    main{height:100vh;width:100vw}
+    #map{height:100vh}
+    .sidebar{
+      position:absolute;top:0;left:0;height:100%;width:88%;max-width:380px;
+      transform:translateX(-105%);transition:transform .28s ease;box-shadow:var(--shadow);z-index:1500;
+    }
+    .sidebar.open{transform:translateX(0)}
+    .menu-toggle{display:flex}
+    .masthead{padding:60px 22px 18px}
+    .masthead h1{font-size:23px}
+    .legend{bottom:14px;left:12px;padding:9px 11px;font-size:10.5px}
+    .leaflet-popup-content{width:190px}
+    .leaflet-popup-content-wrapper{max-width:88vw}
+  }
+
+  /* =========================================================
+     PRINT — produces TWO sheets: (1) the map, (2) the stop list
+     ========================================================= */
+  @page{margin:12mm}
+  @media print{
+    html,body{overflow:visible;background:#fff;height:auto}
+    .app{display:block;height:auto}
+    .menu-toggle{display:none !important}
+    .leaflet-control-container,.leaflet-control-zoom,.legend{display:none !important}
+
+    /* Sheet 1: map */
+    .sidebar{display:none}
+    main{height:auto;width:100%;page-break-after:always}
+    #map{height:170mm;width:100%}
+
+    /* Sheet 2: printable stop list */
+    .print-sheet{display:block !important}
+
+    /* force route colors to render in print */
+    .leaflet-overlay-pane path{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  }
+
+  .print-sheet{display:none;font-family:"Inter",sans-serif;color:var(--ink);background:#fff;padding:0}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle stop list">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <header class="masthead">
+      <div class="eyebrow">Utah · Idaho — Sunday Drive</div>
+      <h1>Murray to <em>Lava Hot Springs</em> — and Home Again</h1>
+      <p>North on I-15 through Malad and McCammon to the hot pools, then home by Soda Springs, Preston, and Logan — Sunday, August 16.</p>
+    </header>
+
+    <div class="route-meta">
+      <div class="stat"><span class="v">10</span><span class="l">Stops</span></div>
+      <div class="stat"><span class="v">161.7 mi</span><span class="l">Outbound</span></div>
+      <div class="stat"><span class="v">194.5 mi</span><span class="l">Return</span></div>
+      <div class="stat"><span class="v">~7h 10m</span><span class="l">Drive time*</span></div>
+    </div>
+
+    <ol class="stops" id="stops"></ol>
+
+    <div class="sidebar-foot">
+      <a class="full-route-btn" id="fullRouteBtn" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/><circle cx="12" cy="12" r="10"/></svg>
+        Get full route directions
+      </a>
+      <button class="print-btn" id="printBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>
+        Print map + stop list
+      </button>
+      <p class="hint">*Non-stop driving time only — doesn't include time at stops. Print produces two sheets: the route map, then a full stop list with addresses. Tap any stop to focus it on the map.</p>
+    </div>
+  </aside>
+
+  <!-- ============ MAP ============ -->
+  <main>
+    <div id="map"></div>
+    <div class="legend">
+      <div class="row"><span class="swatch" style="background:var(--olive)"></span>Start/finish (S) — Murray home</div>
+      <div class="row"><span class="swatch" style="background:var(--terracotta)"></span>Route stops (1–10)</div>
+      <div class="row"><span class="sw-line" style="background:var(--terracotta)"></span>Outbound (S→4, via I-15)</div>
+      <div class="row"><span class="sw-line" style="background:var(--azure)"></span>Return (4→S, dashed blue)</div>
+    </div>
+  </main>
+</div>
+
+<!-- ============ PRINT SHEET 2 — STOP LIST ============ -->
+<section class="print-sheet" id="printSheet">
+  <header style="border-bottom:2px solid var(--terracotta);padding:6mm 0 4mm;margin-bottom:6mm">
+    <div style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--terracotta);font-weight:600">Murray – Lava Hot Springs Loop · Stop List</div>
+    <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:26px;margin-top:4px">Murray to Lava Hot Springs — and Home Again</h1>
+    <p style="font-size:12px;color:#5c564c;margin-top:4px">Sunday, August 16 · Murray → Malad → McCammon → Lava Hot Springs → Soda Springs → Preston → Logan → Brigham City → Murray</p>
+  </header>
+  <table id="printTable" style="width:100%;border-collapse:collapse;font-size:12px"></table>
+  <footer style="margin-top:8mm;padding-top:4mm;border-top:1px solid var(--line);font-size:10px;color:#7a7468">
+    Distances and drive times are approximate and do not include time spent at stops. Verify opening hours before visiting. © OpenStreetMap contributors for map & route data; sources cited inline.
+  </footer>
+</section>
+
+<script>
+/* =========================================================
+   Stops — Murray, UT to Lava Hot Springs, ID loop
+   ========================================================= */
+const STOPS = [
+  {
+    role:"start",
+    name:"Home — Murray, UT",
+    lat:40.667194, lng:-111.875831,
+    tag:"4748 South Glencrest Road · Starting point",
+    desc:"Departure point for the Sunday, August 16 drive north.",
+    address:"4748 South Glencrest Road, Murray, UT 84107",
+    note:"Home base — starting and ending point of the loop.",
+    credit:null
+  },
+  {
+    role:"mid",
+    name:"Malad City — Oneida Pioneer Museum",
+    lat:42.186055, lng:-112.246200,
+    tag:"27 Bannock St · Oneida County seat",
+    desc:"The seat of Oneida County, with a pioneer museum and a well-kept historic downtown.",
+    address:"27 Bannock St, Malad City, ID 83252",
+    note:"Malad City was settled in the 1860s largely by Welsh immigrants — it's said to have more residents of Welsh descent per capita than anywhere in the U.S. outside Wales. The Oneida Pioneer Museum documents that Welsh, Mormon-pioneer, and Shoshone history, and the 1917 Oneida County Courthouse anchors the small historic downtown a block away.",
+    credit:"Idaho Heritage Trust",
+    creditUrl:"https://www.idahoheritagetrust.org/projects-grants/oneida-pioneer-museum/"
+  },
+  {
+    role:"mid",
+    name:"Devil Creek Reservoir",
+    lat:42.299400, lng:-112.204022,
+    tag:"I-15 Exit 22 · scenic overlook",
+    desc:"A small high-desert reservoir just off I-15, popular with anglers and an easy stretch-the-legs stop.",
+    address:"Devil Creek Reservoir, near I-15 Exit 22, Malad, ID",
+    note:"Tucked into a break in the mountains just north of Malad Pass, Devil Creek Reservoir is stocked with rainbow trout by Idaho Fish & Game. It sits right alongside the highway, with views back down the Malad Valley.",
+    credit:"Idaho Fish & Game",
+    creditUrl:"https://idfg.idaho.gov/ifwis/fishingplanner/water/1122052422984"
+  },
+  {
+    role:"mid",
+    name:"McCammon",
+    lat:42.650472, lng:-112.193022,
+    tag:"US-30 / I-15 Business Loop · \"Junction City\"",
+    desc:"A small railroad town where the route leaves the interstate for Lava Hot Springs.",
+    address:"McCammon, ID 83250",
+    note:"McCammon grew up in 1892 as the junction of the Oregon Short Line Railroad and the Utah & Northern Railway, earning it the old nickname \"Junction City.\" It still carries some of that railroad-town character, including the historic Harkness Hotel, and marks the turnoff from I-15 onto US-30 toward Lava Hot Springs.",
+    credit:"Wikipedia",
+    creditUrl:"https://en.wikipedia.org/wiki/McCammon,_Idaho"
+  },
+  {
+    role:"mid",
+    name:"Lava Hot Springs",
+    lat:42.619220, lng:-112.005689,
+    tag:"Main Street · World Famous Hot Pools",
+    desc:"Idaho's best-known hot springs town — mineral pools, a summer swim complex, and a walkable Main Street.",
+    address:"430 E Main St, Lava Hot Springs, ID 83246",
+    note:"The mineral hot pools here have drawn visitors for well over a century; the Shoshone-Bannock people are said to have treated the springs as neutral, sacred ground where rival tribes could bathe in peace. Today the state-run Hot Pools sit alongside a separate Olympic-size swimming pool and waterslide complex on the Portneuf River, with Main Street's shops and cafes a short walk away — the turnaround point of the day.",
+    credit:"lavahotsprings.org",
+    creditUrl:"https://lavahotsprings.org/"
+  },
+  {
+    role:"mid",
+    name:"Soda Springs Geyser",
+    lat:42.653575, lng:-111.600674,
+    tag:"Geyser Park · erupts hourly",
+    desc:"The world's only captive, human-triggered geyser, erupting roughly 100 feet on the hour.",
+    address:"39 W 1st S, Soda Springs, ID 83276",
+    note:"Drillers looking for a warm-water swimming pool in 1937 accidentally tapped a pressurized aquifer, creating a geyser so powerful the town had to cap it with a valve. It's now set on a timer to erupt roughly on the hour at Geyser Park downtown — an easy stop with picnic tables nearby.",
+    credit:"Visit Soda Springs",
+    creditUrl:"https://www.visitsodasprings.com/"
+  },
+  {
+    role:"mid",
+    name:"Hooper Springs Park",
+    lat:42.672109, lng:-111.594120,
+    tag:"Government Dam Rd · naturally carbonated spring",
+    desc:"A quiet park just north of downtown with a spring of naturally carbonated mineral water you can drink from the source.",
+    address:"1805 Government Dam Rd, Soda Springs, ID 83276",
+    note:"Hooper Spring was a documented stop on the Oregon and California Trails, where westbound emigrants paused to sample the naturally carbonated \"soda\" water the town is named for. A small stone pavilion still covers the spring today, and the shaded park around it makes a pleasant short break — about 2 miles north of the geyser, barely off the direct route.",
+    credit:"City of Soda Springs",
+    creditUrl:"https://www.sodaspringsid.com/recreation/hooper_springs_park/index.php"
+  },
+  {
+    role:"mid",
+    name:"Bear River Massacre Site",
+    lat:42.110151, lng:-111.877719,
+    tag:"US-91 near Preston · National Historic Landmark",
+    desc:"A solemn overlook and monument marking the deadliest single episode of violence between the U.S. Army and Native Americans in the West.",
+    address:"US-91, Preston, ID 83263",
+    note:"On January 29, 1863, California Volunteer troops attacked a Northwestern Shoshone winter camp along the Bear River, killing an estimated 250–400 men, women, and children — more than at Sand Creek or Wounded Knee. A 1932 monument and newer interpretive panels, developed with the Northwestern Band of the Shoshone Nation, mark the bluff overlooking the site, directly on the route into Preston.",
+    credit:"Bear River Heritage Area",
+    creditUrl:"https://bearriverheritage.com/item/bear-river-massacre-site/"
+  },
+  {
+    role:"mid",
+    name:"Preston — Historic Downtown",
+    lat:42.095438, lng:-111.876716,
+    tag:"Franklin County seat · \"Napoleon Dynamite\"",
+    desc:"Franklin County's seat, and the real small town where the film Napoleon Dynamite was shot in 2003.",
+    address:"36 S State St, Preston, ID 83263",
+    note:"Preston's unassuming downtown — including the Franklin County Courthouse, the old Deseret Industries thrift store, and Preston High School — became familiar to millions after Napoleon Dynamite was filmed here on a shoestring budget in 2003. Fans still stop for tater tots and to spot Rex Kwon Do landmarks.",
+    credit:"Grahm's Guide",
+    creditUrl:"https://grahmsguide.com/napoleon-dynamite-filming-locations/"
+  },
+  {
+    role:"mid",
+    name:"Logan Tabernacle",
+    lat:41.732420, lng:-111.834766,
+    tag:"Main Street · Cache Valley",
+    desc:"A grand 1878–1891 limestone tabernacle anchoring Logan's historic Main Street.",
+    address:"50 N Main St, Logan, UT 84321",
+    note:"Built between 1878 and 1891 from local limestone and timber, the Logan Tabernacle has served as a community gathering place for well over a century. It sits at the heart of Logan's walkable downtown in Cache Valley, with the larger Logan Temple visible on the bench above.",
+    credit:"Bear River Heritage Area",
+    creditUrl:"https://bearriverheritage.com/item/logan-tabernacle/"
+  },
+  {
+    role:"mid",
+    name:"Box Elder Tabernacle",
+    lat:41.505424, lng:-112.014901,
+    tag:"Main Street, Brigham City",
+    desc:"An 1890 tabernacle famous for its 15 hand-carved \"candlestick\" spires, on a poplar-lined Main Street.",
+    address:"251 S Main St, Brigham City, UT 84302",
+    note:"The original Box Elder Tabernacle burned in 1896 and was rebuilt within a year; its distinctive candlestick-topped tower and spires make it one of the most photographed buildings in northern Utah. Brigham City is the last stop before this drive rejoins I-15 south toward Murray.",
+    credit:"jacobbarlow.com",
+    creditUrl:"https://jacobbarlow.com/2018/09/24/box-elder-tabernacle/"
+  }
+];
+
+/* =========================================================
+   Map setup
+   ========================================================= */
+const map = L.map("map",{zoomControl:true,scrollWheelZoom:true}).setView([41.9,-112.0],8);
+
+L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",{
+  maxZoom:19,
+  attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+}).addTo(map);
+
+/* ---------- Numbered markers ---------- */
+const markers = [];
+STOPS.forEach((s,i)=>{
+  const cls = s.role==="start" ? "start" : "mid";
+  const icon = L.divIcon({
+    className:"",
+    html:`<div class="pin ${cls}"><span>${s.role==="start" ? "S" : i}</span></div>`,
+    iconSize:[34,42],iconAnchor:[17,38],popupAnchor:[0,-36]
+  });
+  const m = L.marker([s.lat,s.lng],{icon}).addTo(map);
+  const dirUrl = `https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}&travelmode=driving`;
+  const imgFile = `img/stop-${s.role==="start" ? "S" : i}.jpg`;
+  const imgTag = s.role==="start" ? "" : `<img class="pop-img" src="${imgFile}" alt="${s.name}" loading="lazy" />`;
+  const creditTag = s.credit ? `<div class="pop-credit">Photo: ${s.credit}</div>` : "";
+  const popup = `
+    <div class="pop">
+      <div class="pop-head">
+        <div class="pop-tag">${s.role==="start" ? "Start / finish" : ("Stop "+i)} · ${s.tag}</div>
+        <h3>${s.name}</h3>
+      </div>
+      ${imgTag}
+      ${creditTag}
+      <div class="pop-body"><p>${s.desc}</p></div>
+      <div class="pop-addr">${s.address}</div>
+      <div class="pop-foot">
+        <a href="${dirUrl}" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Get directions
+        </a>
+      </div>
+    </div>`;
+  m.bindPopup(popup,{maxWidth:260,minWidth:240});
+  markers.push(m);
+});
+
+/* =========================================================
+   Route overlays — real driving geometry from OSRM (OpenStreetMap road network)
+   Outbound S→4 in terracotta; return 4→S in dashed blue
+   ========================================================= */
+const OUTBOUND_COLOR = "#b8502a";
+const RETURN_COLOR = "#2b6ca0"; /* blue */
+
+const OUTBOUND_GEOMETRY = [[40.66717, -111.87578], [40.66745, -111.87685], [40.66637, -111.87755], [40.66709, -111.87906], [40.66696, -111.88822], [40.67442, -111.88821], [40.67483, -111.90078], [40.69027, -111.90307], [40.69769, -111.90161], [40.70448, -111.90349], [40.71536, -111.9042], [40.74379, -111.90397], [40.74629, -111.90522], [40.75111, -111.91029], [40.76135, -111.91409], [40.77193, -111.91026], [40.78195, -111.91045], [40.79045, -111.91545], [40.80922, -111.92399], [40.81368, -111.92259], [40.81799, -111.91769], [40.82064, -111.91628], [40.84672, -111.91436], [40.86385, -111.89997], [40.87018, -111.89714], [40.89241, -111.89613], [40.90297, -111.89123], [40.96835, -111.89131], [40.98363, -111.8982], [40.98653, -111.90052], [41.00492, -111.93036], [41.01199, -111.93824], [41.02998, -111.947], [41.03744, -111.94816], [41.04627, -111.95691], [41.05263, -111.96068], [41.05717, -111.96086], [41.059, -111.96183], [41.06366, -111.96712], [41.11807, -112.01699], [41.12337, -112.02327], [41.12655, -112.02501], [41.13296, -112.02481], [41.14094, -112.02304], [41.14882, -112.02493], [41.15267, -112.02492], [41.17831, -112.01824], [41.19239, -112.00408], [41.19959, -111.99546], [41.2044, -111.99395], [41.2073, -111.99497], [41.2187, -112.00389], [41.22371, -112.01098], [41.25069, -112.0172], [41.25956, -112.02367], [41.2672, -112.02603], [41.31728, -112.02594], [41.33833, -112.03491], [41.3434, -112.03849], [41.3569, -112.04273], [41.38968, -112.04178], [41.40708, -112.0492], [41.41958, -112.0514], [41.42968, -112.05712], [41.4892, -112.05281], [41.52069, -112.06399], [41.58562, -112.07295], [41.61004, -112.08257], [41.61696, -112.08686], [41.6267, -112.09351], [41.67551, -112.13362], [41.67842, -112.13769], [41.70252, -112.18762], [41.70468, -112.19048], [41.70757, -112.19207], [41.73284, -112.19223], [41.7691, -112.17642], [41.7848, -112.17234], [41.79252, -112.17307], [41.81182, -112.17858], [41.82143, -112.17954], [41.83305, -112.17807], [41.85258, -112.17114], [41.86309, -112.16944], [41.93445, -112.17205], [41.94159, -112.1734], [41.95845, -112.17924], [41.96581, -112.18029], [41.96895, -112.18207], [41.97666, -112.18947], [41.9822, -112.19265], [41.99408, -112.19555], [42.0566, -112.21812], [42.08734, -112.21858], [42.11026, -112.21631], [42.13247, -112.22012], [42.14067, -112.21909], [42.14614, -112.22015], [42.15661, -112.21962], [42.16293, -112.22088], [42.18324, -112.23162], [42.1831, -112.23404], [42.18473, -112.23735], [42.18395, -112.24654], [42.18615, -112.24592], [42.18473, -112.24398], [42.18473, -112.23735], [42.1831, -112.23404], [42.18324, -112.23162], [42.18709, -112.23493], [42.20088, -112.23834], [42.22179, -112.23821], [42.24331, -112.22505], [42.27445, -112.21271], [42.2874, -112.20845], [42.29496, -112.20979], [42.30393, -112.20858], [42.30423, -112.20725], [42.30329, -112.2078], [42.30002, -112.20585], [42.30329, -112.2078], [42.30423, -112.20725], [42.30393, -112.20858], [42.30765, -112.20968], [42.31757, -112.2161], [42.33823, -112.22542], [42.34344, -112.22652], [42.34802, -112.2259], [42.35254, -112.22382], [42.36776, -112.21257], [42.3729, -112.21074], [42.45173, -112.1716], [42.45948, -112.16947], [42.50254, -112.16931], [42.54059, -112.17157], [42.56744, -112.17925], [42.61497, -112.19806], [42.61724, -112.19794], [42.61718, -112.19046], [42.62898, -112.19026], [42.63902, -112.1929], [42.64746, -112.1913], [42.6498, -112.19235], [42.64948, -112.19363], [42.65046, -112.1941], [42.65077, -112.19284], [42.64783, -112.19138], [42.64533, -112.19169], [42.64478, -112.18641], [42.64657, -112.18041], [42.6392, -112.17414], [42.62974, -112.17235], [42.62701, -112.16787], [42.62765, -112.15164], [42.6305, -112.13994], [42.63068, -112.13573], [42.62954, -112.13181], [42.62529, -112.12461], [42.62143, -112.11106], [42.61709, -112.08098], [42.61598, -112.0595], [42.61647, -112.05553], [42.62338, -112.03554], [42.62451, -112.02896], [42.62259, -112.0143], [42.61978, -112.00455], [42.61922, -112.00569]];
+const RETURN_GEOMETRY = [[42.61922, -112.00569], [42.62312, -111.99478], [42.62264, -111.99161], [42.61754, -111.98274], [42.6167, -111.97912], [42.61872, -111.96666], [42.61871, -111.95416], [42.62157, -111.92751], [42.62488, -111.92167], [42.63131, -111.91639], [42.63476, -111.91479], [42.64229, -111.90648], [42.64724, -111.89616], [42.64977, -111.88449], [42.64898, -111.71664], [42.65804, -111.65601], [42.66165, -111.64117], [42.65506, -111.61484], [42.65467, -111.60066], [42.6525, -111.60068], [42.65247, -111.59486], [42.67756, -111.59411], [42.6775, -111.58447], [42.66096, -111.58445], [42.65907, -111.58688], [42.65897, -111.59481], [42.65462, -111.59484], [42.65485, -111.61364], [42.66163, -111.64163], [42.65804, -111.65601], [42.64946, -111.71139], [42.64903, -111.73025], [42.48102, -111.73076], [42.4715, -111.72454], [42.45526, -111.72081], [42.44343, -111.72216], [42.43628, -111.72082], [42.42558, -111.72112], [42.41121, -111.72683], [42.40639, -111.7243], [42.39493, -111.7158], [42.38968, -111.71641], [42.37832, -111.71366], [42.3758, -111.7151], [42.37148, -111.72028], [42.36799, -111.72125], [42.36557, -111.72019], [42.35775, -111.71288], [42.35436, -111.71135], [42.34916, -111.71134], [42.34551, -111.71493], [42.34117, -111.71705], [42.33982, -111.71894], [42.33902, -111.72701], [42.3344, -111.73499], [42.33075, -111.75017], [42.33065, -111.7581], [42.32952, -111.761], [42.31918, -111.76614], [42.31543, -111.77561], [42.30291, -111.79223], [42.29131, -111.80125], [42.28309, -111.80972], [42.2755, -111.81404], [42.26552, -111.82782], [42.25779, -111.83577], [42.24307, -111.84504], [42.22932, -111.84619], [42.21386, -111.84388], [42.19326, -111.83302], [42.18648, -111.83588], [42.17399, -111.83736], [42.15072, -111.8247], [42.14744, -111.82451], [42.13243, -111.83484], [42.12355, -111.84938], [42.11189, -111.86177], [42.1109, -111.86449], [42.1106, -111.87854], [42.10833, -111.87665], [42.09079, -111.87628], [42.08173, -111.86525], [42.06897, -111.8423], [42.05262, -111.81637], [42.03303, -111.81221], [42.01884, -111.80432], [42.01337, -111.80464], [42.00458, -111.8119], [42.00234, -111.81279], [41.95915, -111.81285], [41.89144, -111.81502], [41.88821, -111.81619], [41.86954, -111.82793], [41.85302, -111.83181], [41.71671, -111.83575], [41.71336, -111.83814], [41.69309, -111.86543], [41.64601, -111.91303], [41.62119, -111.9292], [41.60699, -111.94113], [41.60305, -111.9455], [41.60146, -111.94843], [41.60107, -111.95189], [41.60393, -111.95982], [41.60502, -111.97325], [41.60398, -111.97702], [41.6014, -111.97949], [41.59828, -111.97958], [41.57827, -111.97314], [41.56194, -111.96272], [41.55122, -111.95393], [41.54919, -111.95378], [41.53956, -111.95788], [41.53336, -111.95819], [41.51823, -111.94066], [41.5159, -111.94089], [41.5094, -111.945], [41.5029, -111.94592], [41.50081, -111.94711], [41.49915, -111.9498], [41.49602, -111.96213], [41.49971, -111.98387], [41.50003, -111.99328], [41.50565, -112.00368], [41.50606, -112.01427], [41.50475, -112.0143], [41.50476, -112.01588], [41.48671, -112.01654], [41.48651, -112.03759], [41.48525, -112.05406], [41.47805, -112.05386], [41.43046, -112.0576], [41.42654, -112.0563], [41.41999, -112.05192], [41.40754, -112.04971], [41.38959, -112.04212], [41.3569, -112.04308], [41.34335, -112.03884], [41.3381, -112.03513], [41.31796, -112.02642], [41.26747, -112.02634], [41.25971, -112.02402], [41.25138, -112.01767], [41.22385, -112.01134], [41.22147, -112.0092], [41.21853, -112.0041], [41.20773, -111.99556], [41.20457, -111.99422], [41.20181, -111.9945], [41.19922, -111.99617], [41.18056, -112.01706], [41.178, -112.01865], [41.15266, -112.02542], [41.12573, -112.02517], [41.05891, -111.96214], [41.05683, -111.9611], [41.05275, -111.96103], [41.04612, -111.95714], [41.03741, -111.94849], [41.0299, -111.94733], [41.01169, -111.93837], [41.00461, -111.93042], [40.98628, -111.90066], [40.9831, -111.8983], [40.96731, -111.89143], [40.9044, -111.89152], [40.89283, -111.89632], [40.87044, -111.89731], [40.86324, -111.90078], [40.84714, -111.91447], [40.8432, -111.91552], [40.82063, -111.91662], [40.81801, -111.91809], [40.81396, -111.92275], [40.80962, -111.92427], [40.79058, -111.91581], [40.78189, -111.91078], [40.77231, -111.9108], [40.76309, -111.91453], [40.75993, -111.91446], [40.75068, -111.91047], [40.74402, -111.90433], [40.71824, -111.90473], [40.7045, -111.90384], [40.69767, -111.90192], [40.69106, -111.9035], [40.67527, -111.90223], [40.67439, -111.90083], [40.67428, -111.88839], [40.66696, -111.8884], [40.66709, -111.87906], [40.66637, -111.87755], [40.66745, -111.87685], [40.66717, -111.87578]];
+
+function fitAll(){
+  const latlngs = STOPS.map(s=>[s.lat,s.lng]);
+  map.fitBounds(L.latLngBounds(latlngs).pad(0.12));
+}
+
+function drawPolyline(latlngs,color,weight,dash){
+  L.polyline(latlngs,{color,weight:weight+4.5,opacity:.14,lineCap:"round",lineJoin:"round",dashArray:dash}).addTo(map);
+  L.polyline(latlngs,{color,weight,opacity:.92,lineCap:"round",lineJoin:"round",dashArray:dash}).addTo(map);
+}
+
+function drawRoutes(){
+  drawPolyline(OUTBOUND_GEOMETRY, OUTBOUND_COLOR, 4, null);      /* solid terracotta outbound */
+  drawPolyline(RETURN_GEOMETRY, RETURN_COLOR, 3.5, "2 8");        /* dotted blue return leg */
+  fitAll();
+}
+drawRoutes();
+
+/* =========================================================
+   Sidebar stop list
+   ========================================================= */
+const stopsEl = document.getElementById("stops");
+const arrow = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
+
+const LEG_DISTANCES = {1:"114.6 mi",2:"9.9 mi",3:"25.8 mi",4:"11.4 mi",5:"22.1 mi",6:"1.7 mi",7:"52.9 mi",8:"1.0 mi",9:"26.9 mi",10:"24.3 mi"};
+
+STOPS.forEach((s,i)=>{
+  const li = document.createElement("li");
+  li.className = "stop" + (i===5 ? " leg-divider" : "");
+  li.dataset.role = s.role;
+  li.dataset.index = i;
+  const dirUrl = `https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}&travelmode=driving`;
+  const legNote = i>0 ? `<span style="color:#9a917f"> · ${LEG_DISTANCES[i]} from previous stop</span>` : "";
+  li.innerHTML = `
+    <div class="badge">${s.role==="start" ? "S" : i}</div>
+    <div class="body">
+      <div class="name">${s.name}</div>
+      <div class="desc">${s.desc}${legNote}</div>
+    </div>
+    <a class="dir-btn" href="${dirUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${arrow}Directions</a>`;
+  li.addEventListener("click",()=>{
+    document.querySelectorAll(".stop").forEach(x=>x.classList.remove("active"));
+    li.classList.add("active");
+    map.flyTo([s.lat,s.lng],12,{duration:.8});
+    markers[i].openPopup();
+    if(window.innerWidth<=820){ document.getElementById("sidebar").classList.remove("open"); }
+  });
+  stopsEl.appendChild(li);
+});
+
+/* ---------- Final leg home ---------- */
+const retLi = document.createElement("li");
+retLi.className = "stop return";
+retLi.dataset.role = "end";
+{
+  const s = STOPS[0];
+  const last = STOPS[STOPS.length-1];
+  const dirUrl = `https://www.google.com/maps/dir/?api=1&origin=${last.lat},${last.lng}&destination=${s.lat},${s.lng}&travelmode=driving`;
+  retLi.innerHTML = `
+    <div class="badge">↵</div>
+    <div class="body">
+      <div class="name">Return to Murray, UT</div>
+      <div class="desc">From Brigham City south on I-15 back to Glencrest Road — about 65.6 mi, roughly 1 hr 15 min.</div>
+    </div>
+    <a class="dir-btn" href="${dirUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${arrow}Directions</a>`;
+}
+stopsEl.appendChild(retLi);
+
+/* ---------- Full multi-stop route button ---------- */
+function buildFullRouteUrl(){
+  const origin = STOPS[0];
+  const dest = STOPS[0];
+  const waypoints = STOPS.slice(1).map(s=>`${s.lat},${s.lng}`).join("|");
+  return `https://www.google.com/maps/dir/?api=1`
+    + `&origin=${origin.lat},${origin.lng}`
+    + `&destination=${dest.lat},${dest.lng}`
+    + `&waypoints=${encodeURIComponent(waypoints)}`
+    + `&travelmode=driving`;
+}
+document.getElementById("fullRouteBtn").href = buildFullRouteUrl();
+
+/* ---------- Print button ---------- */
+document.getElementById("printBtn").addEventListener("click",()=>{
+  map.invalidateSize();
+  setTimeout(()=>window.print(), 400);
+});
+
+/* ---------- Mobile menu ---------- */
+document.getElementById("menuToggle").addEventListener("click",()=>{
+  document.getElementById("sidebar").classList.toggle("open");
+});
+
+setTimeout(()=>{ map.invalidateSize(); }, 400);
+
+/* =========================================================
+   Build the printable stop-list table (Sheet 2)
+   ========================================================= */
+const tbl = document.getElementById("printTable");
+
+STOPS.forEach((s,i)=>{
+  const tr = document.createElement("tr");
+  tr.style.borderBottom = "1px solid #e3d9c3";
+  const sourceCell = s.credit ? ` <span style="color:#9a917f">(<a href="${s.creditUrl}" style="color:#9a917f;text-decoration:none">${s.credit}</a>)</span>` : "";
+  tr.innerHTML = `
+    <td style="vertical-align:top;padding:4mm 3mm;width:10mm">
+      <div style="width:24px;height:24px;border-radius:50%;background:${i===0?'#5b6b3a':'#b8502a'};color:#fff;font-family:'Fraunces',serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center">${i===0?'S':i}</div>
+    </td>
+    <td style="vertical-align:top;padding:4mm 3mm;width:58mm">
+      <div style="font-family:'Fraunces',serif;font-weight:600;font-size:15px;line-height:1.2">${s.name}</div>
+      <div style="font-size:10.5px;color:#7a7468;margin-top:2px">${s.address}</div>
+    </td>
+    <td style="vertical-align:top;padding:4mm 3mm;font-size:11.5px;line-height:1.5;color:#3a352d">${s.note}${sourceCell}</td>`;
+  tbl.appendChild(tr);
+});
+// return row
+const rtr = document.createElement("tr");
+rtr.style.borderBottom = "none";
+rtr.innerHTML = `
+  <td style="vertical-align:top;padding:4mm 3mm;width:10mm">
+    <div style="width:24px;height:24px;border-radius:50%;background:#2b6ca0;color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center">↵</div>
+  </td>
+  <td style="vertical-align:top;padding:4mm 3mm;width:58mm">
+    <div style="font-family:'Fraunces',serif;font-weight:600;font-size:15px;line-height:1.2">Return to Murray, UT</div>
+    <div style="font-size:10.5px;color:#7a7468;margin-top:2px">4748 South Glencrest Road, Murray, UT 84107</div>
+  </td>
+  <td style="vertical-align:top;padding:4mm 3mm;font-size:11.5px;line-height:1.5;color:#3a352d">The dashed blue route on the map traces the drive back from Brigham City down I-15 to Murray — about 65.6 mi, roughly 1 hr 15 min.</td>`;
+tbl.appendChild(rtr);
+</script>
+</body>
+</html>
