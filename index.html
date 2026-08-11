@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Murray to Lava Hot Springs Loop — Family Road Trip</title>
+<title>Saltas Family August "SPRING" Break</title>
 <meta name="description" content="A printable, interactive road-trip map: Murray, Utah to Lava Hot Springs, Idaho and back via Malad, McCammon, Soda Springs, Preston, and Logan." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,12 +19,12 @@
     --paper:#f5f0e3;
     --paper-2:#ece2c9;
     --marble:#fbf8f1;
-    --azure:#2b6ca0;
-    --azure-deep:#123f5c;
-    --olive:#5b6b3a;
-    --terracotta:#b8502a;
-    --teal:#2a7f7e;
-    --gold:#c8a04a;
+    --azure:#1c6fb0;
+    --azure-deep:#0c3a57;
+    --olive:#49661f;
+    --terracotta:#c8451a;
+    --teal:#128078;
+    --gold:#c8931f;
     --line:#dcd0af;
     --shadow:0 10px 30px rgba(28,27,25,.12), 0 2px 6px rgba(28,27,25,.08);
   }
@@ -86,6 +86,7 @@
   }
   .stop[data-role="start"] .badge{background:var(--olive);box-shadow:0 2px 5px rgba(91,107,58,.4)}
   .stop[data-role="end"] .badge{background:var(--azure);box-shadow:0 2px 5px rgba(43,108,160,.4)}
+  .badge.spring{background:var(--gold);border-radius:7px;box-shadow:0 2px 5px rgba(200,147,31,.45)}
 
   .stop .body .name{font-family:"Fraunces",serif;font-weight:600;font-size:15.5px;line-height:1.22;margin-bottom:3px;letter-spacing:-.01em}
   .stop .body .desc{font-size:12px;line-height:1.48;color:#5c564c}
@@ -135,10 +136,11 @@
   .legend .sw-line{height:4px;border-radius:2px;width:18px}
 
   /* ---------- Marker pins ---------- */
+  .pin-wrap{filter:drop-shadow(0 3px 4px rgba(28,27,25,.45))}
   .pin{
     width:34px;height:34px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);
     display:flex;align-items:center;justify-content:center;
-    box-shadow:0 4px 10px rgba(0,0,0,.3);border:2px solid #fff;
+    border:2.5px solid #fff;
   }
   .pin span{transform:rotate(45deg);font-family:"Fraunces",serif;font-weight:700;font-size:15px;color:#fff}
   .pin.start{background:var(--olive)}
@@ -147,6 +149,19 @@
   .pin.return{background:var(--azure)}
   .pin.alt{background:var(--teal)}
   .pin.alt span{font-size:18px}
+
+  /* ---------- Box-shaped SPRING pins (soaking springs) ---------- */
+  .pin-spring{
+    width:36px;height:36px;border-radius:8px;background:var(--gold);
+    display:flex;align-items:center;justify-content:center;border:2.5px solid #fff;
+    position:relative;
+  }
+  .pin-spring::after{
+    content:"";position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);
+    width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;
+    border-top:7px solid var(--gold);
+  }
+  .pin-spring svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
   /* ---------- Popups ---------- */
   .leaflet-popup-content-wrapper{border-radius:14px;box-shadow:var(--shadow);border:1px solid var(--line);padding:0;overflow:hidden}
@@ -193,6 +208,15 @@
   }
   .pop-foot a:hover{background:var(--azure)}
   .pop-foot svg{width:12px;height:12px}
+
+  .pop-dining{padding:2px 15px 12px;border-top:1px solid var(--line);margin-top:2px}
+  .dine-head{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--azure-deep);font-weight:600;margin:10px 0 6px}
+  .dine-row{font-size:11.5px;line-height:1.45;color:#4a463f;margin-bottom:6px}
+  .dine-row b{font-weight:600;color:var(--ink)}
+  .dine-row a{color:var(--azure-deep);text-decoration:none;border-bottom:1px dotted var(--azure)}
+  .dine-row a:hover{color:var(--azure)}
+  .dine-credit{font-size:9.5px;color:#9a917f;font-style:italic}
+  .dine-desc{display:block;color:#7a7468}
 
   /* ---------- Mobile ---------- */
   .menu-toggle{
@@ -257,15 +281,15 @@
   <aside class="sidebar" id="sidebar">
     <header class="masthead">
       <div class="eyebrow">Utah · Idaho — Sunday Drive</div>
-      <h1>Murray to <em>Lava Hot Springs</em> — and Home Again</h1>
-      <p>North on I-15 through Malad and McCammon to the hot pools, then home by Soda Springs, Preston, and Logan — Sunday, August 16.</p>
+      <h1>Saltas Family August <em>"SPRING"</em> Break</h1>
+      <p>North on I-15 through Malad and McCammon to the hot pools, then home by Soda Springs, Preston, and Logan — Sunday, August 16. Gold box pins mark soaking springs along the way.</p>
     </header>
 
     <div class="route-meta">
-      <div class="stat"><span class="v">10</span><span class="l">Stops</span></div>
+      <div class="stat"><span class="v">14</span><span class="l">Stops</span></div>
       <div class="stat"><span class="v">161.7 mi</span><span class="l">Outbound</span></div>
-      <div class="stat"><span class="v">194.5 mi</span><span class="l">Return</span></div>
-      <div class="stat"><span class="v">~7h 10m</span><span class="l">Drive time*</span></div>
+      <div class="stat"><span class="v">195.9 mi</span><span class="l">Return</span></div>
+      <div class="stat"><span class="v">~7h 15m</span><span class="l">Drive time*</span></div>
     </div>
 
     <ol class="stops" id="stops"></ol>
@@ -288,8 +312,9 @@
     <div id="map"></div>
     <div class="legend">
       <div class="row"><span class="swatch" style="background:var(--olive)"></span>Start/finish (S) — Murray home</div>
-      <div class="row"><span class="swatch" style="background:var(--terracotta)"></span>Route stops (1–10)</div>
-      <div class="row"><span class="sw-line" style="background:var(--terracotta)"></span>Outbound (S→4, via I-15)</div>
+      <div class="row"><span class="swatch" style="background:var(--terracotta)"></span>Route stops (1–14)</div>
+      <div class="row"><span class="swatch" style="background:var(--gold);border-radius:4px"></span>Soaking springs (gold box pins)</div>
+      <div class="row"><span class="sw-line" style="background:var(--terracotta)"></span>Outbound (S→5, via I-15)</div>
       <div class="row"><span class="sw-line" style="background:var(--azure)"></span>Return via Preston/Logan</div>
       <div class="row"><span class="sw-line" style="background:var(--teal)"></span>Alt. return via Bear Lake (+40 min)</div>
     </div>
@@ -299,19 +324,19 @@
 <!-- ============ PRINT SHEET 2 — STOP LIST ============ -->
 <section class="print-sheet" id="printSheet">
   <header style="border-bottom:2px solid var(--terracotta);padding:6mm 0 4mm;margin-bottom:6mm">
-    <div style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--terracotta);font-weight:600">Murray – Lava Hot Springs Loop · Stop List</div>
+    <div style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--terracotta);font-weight:600">Saltas Family August "SPRING" Break · Stop List</div>
     <h1 style="font-family:'Fraunces',serif;font-weight:600;font-size:26px;margin-top:4px">Murray to Lava Hot Springs — and Home Again</h1>
-    <p style="font-size:12px;color:#5c564c;margin-top:4px">Sunday, August 16 · Murray → Malad → McCammon → Lava Hot Springs → Soda Springs → Preston → Logan → Brigham City → Murray</p>
+    <p style="font-size:12px;color:#5c564c;margin-top:4px">Sunday, August 16 · Murray → Crystal Hot Springs → Malad → McCammon → Lava Hot Springs → Soda Springs → Preston → Bear River &amp; Maple Grove Hot Springs → Logan → Brigham City → Ogden → Murray</p>
   </header>
   <div style="margin:0 0 6mm;padding:4mm 5mm;border:1px solid var(--line);border-radius:3mm;background:var(--paper-2)">
     <div style="font-family:'Fraunces',serif;font-weight:600;font-size:13px;margin-bottom:3mm;color:var(--azure-deep)">Two ways home from Soda Springs</div>
     <table style="width:100%;font-size:11px;border-collapse:collapse">
       <tr><td style="padding:1.5mm 0;color:#5c564c">Murray → Lava Hot Springs</td><td style="padding:1.5mm 0;text-align:right;font-weight:600;white-space:nowrap">161.7 mi · 2h 58m</td></tr>
       <tr><td style="padding:1.5mm 0;color:#5c564c">Lava Hot Springs → Soda Springs</td><td style="padding:1.5mm 0;text-align:right;font-weight:600;white-space:nowrap">22.1 mi · 27 min</td></tr>
-      <tr><td style="padding:1.5mm 0;color:#5c564c"><span style="display:inline-block;width:10px;height:3px;background:#2b6ca0;border-radius:2px;margin-right:5px;vertical-align:middle"></span>Soda Springs → Murray, via Logan</td><td style="padding:1.5mm 0;text-align:right;font-weight:600;white-space:nowrap">172.3 mi · 3h 41m</td></tr>
-      <tr><td style="padding:1.5mm 0;color:#5c564c"><span style="display:inline-block;width:10px;height:3px;background:#2a7f7e;border-radius:2px;margin-right:5px;vertical-align:middle"></span>Soda Springs → Murray, via Bear Lake</td><td style="padding:1.5mm 0;text-align:right;font-weight:600;white-space:nowrap">192.7 mi · 4h 21m</td></tr>
+      <tr><td style="padding:1.5mm 0;color:#5c564c"><span style="display:inline-block;width:10px;height:3px;background:#2b6ca0;border-radius:2px;margin-right:5px;vertical-align:middle"></span>Soda Springs → Murray, via Logan & Ogden</td><td style="padding:1.5mm 0;text-align:right;font-weight:600;white-space:nowrap">173.8 mi · 3h 44m</td></tr>
+      <tr><td style="padding:1.5mm 0;color:#5c564c"><span style="display:inline-block;width:10px;height:3px;background:#2a7f7e;border-radius:2px;margin-right:5px;vertical-align:middle"></span>Soda Springs → Murray, via Bear Lake</td><td style="padding:1.5mm 0;text-align:right;font-weight:600;white-space:nowrap">194.1 mi · 4h 23m</td></tr>
     </table>
-    <p style="font-size:10px;line-height:1.5;color:#7a7468;margin-top:3mm">The Bear Lake option (teal dashed line on the map) trades Preston and the Bear River Massacre site for Garden City's turquoise shoreline and a run down Logan Canyon — about 20 miles and 40 minutes longer, rejoining the original route (blue dashed line) at Logan.</p>
+    <p style="font-size:10px;line-height:1.5;color:#7a7468;margin-top:3mm">The Bear Lake option (teal dashed line on the map) trades Preston and the Bear River Massacre site for Garden City's turquoise shoreline and a run down Logan Canyon — about 20 miles and 40 minutes longer, rejoining the original route (blue dashed line) at Logan. Neither total includes the optional gold-pin detours to Bear River Hot Springs or Maple Grove Hot Springs near Preston.</p>
   </div>
   <table id="printTable" style="width:100%;border-collapse:collapse;font-size:12px"></table>
   <footer style="margin-top:8mm;padding-top:4mm;border-top:1px solid var(--line);font-size:10px;color:#7a7468">
@@ -333,6 +358,19 @@ const STOPS = [
     address:"4748 South Glencrest Road, Murray, UT 84107",
     note:"Home base — starting and ending point of the loop.",
     credit:null
+  },
+  {
+    role:"mid",
+    name:"Crystal Hot Springs",
+    lat:41.6590, lng:-112.0880,
+    tag:"Developed hot & cold pools · Honeyville, UT",
+    pinStyle:"spring",
+    desc:"A family-run hot springs resort with several mineral soaking pools ranging from warm to very hot, plus a large cold pool and waterslide, right on I-15 north of Brigham City.",
+    address:"8215 N Hwy 38, Honeyville, UT 84314",
+    note:"About 13 miles north of Brigham City on the way out, Crystal Hot Springs channels natural mineral water into a range of developed pools from cool to scalding, plus a large recreational pool and waterslide — an easy first soak of the trip, right off I-15.",
+    credit:"Illustrative rendering — exact pools not photographed",
+    creditUrl:"https://www.crystalhotsprings.net/",
+    img:"img/stop-spring-crystal.jpg"
   },
   {
     role:"mid",
@@ -381,6 +419,11 @@ const STOPS = [
       { file:"img/stop-4a.jpg", alt:"Olympic Swimming Complex, Lava Hot Springs", label:"Olympic Pool", credit:"Illustrative rendering — exact complex not photographed" },
       { file:"img/stop-4b.jpg", alt:"Steaming mineral hot pools at Lava Hot Springs", label:"Main Hot Springs", credit:"fishermansdaughter, CC BY 2.0, via Wikimedia Commons" },
       { file:"img/stop-4c.jpg", alt:"Main Street bridge, Lava Hot Springs, Idaho", label:"Main Street", credit:"JF Hobbs, CC BY 3.0, via Wikimedia Commons" }
+    ],
+    dining:[
+      { name:"78 Main Street Eatery", desc:"Classic American comfort food — burgers, sandwiches, hearty breakfasts — with a true small-town vibe." },
+      { name:"Portneuf Grille & Lounge", desc:"Northwest-inspired fine dining at Riverside Hot Springs Inn; fresh seafood and aged prime steak." },
+      { name:"Riverwalk Thai", desc:"Family-owned Thai food in a converted former gas station near the hot springs." }
     ]
   },
   {
@@ -388,11 +431,17 @@ const STOPS = [
     name:"Soda Springs Geyser",
     lat:42.653575, lng:-111.600674,
     tag:"Geyser Park · erupts hourly",
+    pinStyle:"spring",
     desc:"The world's only captive, human-triggered geyser, erupting roughly 100 feet on the hour.",
     address:"39 W 1st S, Soda Springs, ID 83276",
     note:"Drillers looking for a warm-water swimming pool in 1937 accidentally tapped a pressurized aquifer, creating a geyser so powerful the town had to cap it with a valve. It's now set on a timer to erupt roughly on the hour at Geyser Park downtown — an easy stop with picnic tables nearby.",
     credit:"Visit Soda Springs",
-    creditUrl:"https://www.visitsodasprings.com/"
+    creditUrl:"https://www.visitsodasprings.com/",
+    dining:[
+      { name:"Caribou Jack's Trading Co & BBQ", desc:"Hardware store with an in-house BBQ cafe — Traeger-smoked meats and home-cooked sides." },
+      { name:"Arctic Circle Restaurant", desc:"Regional fast-food outpost — a reliable quick stop for burgers and shakes." },
+      { name:"Enders Hotel & Restaurant", desc:"Historic hotel dining room downtown, known for classic American comfort food." }
+    ]
   },
   {
     role:"mid",
@@ -429,6 +478,32 @@ const STOPS = [
   },
   {
     role:"mid",
+    name:"Bear River Hot Springs",
+    lat:42.164460, lng:-111.837770,
+    tag:"Riverside soaking pools · short detour from Preston",
+    pinStyle:"spring",
+    desc:"A rustic, family-run soak on the Bear River just northeast of Preston — simple mineral pools right on the riverbank, open year-round.",
+    address:"3696 N 1600 E, Preston, ID 83263",
+    note:"A low-key, family-owned hot springs resort on the banks of the Bear River, with mineral soaking pools open year-round (hours vary by day). A short detour northeast of downtown Preston, it's a quieter alternative to Lava for a soak on the way home.",
+    credit:"Illustrative rendering — exact pools not photographed",
+    creditUrl:"https://www.bearriverhotsprings.com/",
+    img:"img/stop-spring-bearriver.jpg"
+  },
+  {
+    role:"mid",
+    name:"Maple Grove Hot Springs",
+    lat:42.309060, lng:-111.707924,
+    tag:"Riverside pools & glamping · via ID-34 from Preston",
+    pinStyle:"spring",
+    desc:"A scenic 45-acre riverside property with several soaking pools, a sandy beach, and glamping — about a 21-mile detour up ID-34 from Preston.",
+    address:"11386 Oneida Narrows Rd, Thatcher, ID 83283",
+    note:"Tucked into a river canyon along ID-34, Maple Grove is a 45-acre soaking retreat with four to six riverside mineral pools, a beach, hiking trails, and glamping yurts and cabins. It's farther off-route than the other springs — worth it only if there's time for the full detour.",
+    credit:"Illustrative rendering — exact pools not photographed",
+    creditUrl:"https://www.maplegrovesprings.com/",
+    img:"img/stop-spring-maplegrove.jpg"
+  },
+  {
+    role:"mid",
     name:"Logan Tabernacle",
     lat:41.732420, lng:-111.834766,
     tag:"Main Street · Cache Valley",
@@ -436,7 +511,12 @@ const STOPS = [
     address:"50 N Main St, Logan, UT 84321",
     note:"Built between 1878 and 1891 from local limestone and timber, the Logan Tabernacle has served as a community gathering place for well over a century. It sits at the heart of Logan's walkable downtown in Cache Valley, with the larger Logan Temple visible on the bench above.",
     credit:"Bear River Heritage Area",
-    creditUrl:"https://bearriverheritage.com/item/logan-tabernacle/"
+    creditUrl:"https://bearriverheritage.com/item/logan-tabernacle/",
+    dining:[
+      { name:"Le Nonne Ristorante Italiano", desc:"Northern Italian cooking and handmade gnocchi, 129 N 100 East.", credit:"City Weekly", creditUrl:"https://www.cityweekly.net/utah/second-to-nonne-from-northern-italy-to-northern-utah-thereandrsquos-no-better-gnocchi-than-micheliandrsquos/Content?oid=2128297" },
+      { name:"Elements Restaurant", desc:"Fine dining at Riverwoods, 35 E 640 South.", credit:"City Weekly", creditUrl:"https://www.cityweekly.net/utah/elements-fine-dining-in-logan/Content?oid=2153126" },
+      { name:"Cafe Sabor", desc:"Tex-Mex in a former train depot, 600 W Center St." }
+    ]
   },
   {
     role:"mid",
@@ -448,6 +528,22 @@ const STOPS = [
     note:"The original Box Elder Tabernacle burned in 1896 and was rebuilt within a year; its distinctive candlestick-topped tower and spires make it one of the most photographed buildings in northern Utah. Brigham City is the last stop before this drive rejoins I-15 south toward Murray.",
     credit:"jacobbarlow.com",
     creditUrl:"https://jacobbarlow.com/2018/09/24/box-elder-tabernacle/"
+  },
+  {
+    role:"mid",
+    name:"Ogden — Union Station",
+    lat:41.22083, lng:-111.97972,
+    tag:"Historic 25th Street · railroad, gun & car museums",
+    desc:"This 1924 Spanish Colonial Revival depot anchors historic 25th Street, once one of the West's busiest rail junctions. Today it houses railroad, firearms, and classic-car museums under grand arched windows — a quick, walkable stop with easy access to Ogden's best restaurants and shops.",
+    address:"2501 Wall Ave, Ogden, UT 84401",
+    note:"Opened in 1924 after fire destroyed its predecessor, Union Station once saw dozens of trains a day pass through Ogden's rail junction connecting the transcontinental line. The restored depot now houses the Utah State Railroad, Browning Firearms, and Browning-Kimball classic-car museums beneath its grand arched windows, with the shops, galleries, and restaurants of historic 25th Street a short walk away — a good last stretch-the-legs stop before the freeway home.",
+    credit:"David Jay Fullmer, CC BY-SA 4.0, via Wikimedia Commons",
+    creditUrl:"https://commons.wikimedia.org/wiki/File:Ogden_Union_Station.jpg",
+    dining:[
+      { name:"Hearth on 25th", desc:"Wood-fired, seasonal New American plates, 195 25th St.", credit:"City Weekly", creditUrl:"https://www.cityweekly.net/utah/hearth/Content?oid=3027284" },
+      { name:"Slackwater Pub & Pizzeria", desc:"Craft beer and wood-fired pizza, 1895 Washington Blvd.", credit:"City Weekly", creditUrl:"https://www.cityweekly.net/utah/slackwater-pub-and-pizzeria/Content?oid=2158777" },
+      { name:"La Crepe OG", desc:"Sweet and savory crepes, 2401 Kiesel Ave.", credit:"City Weekly", creditUrl:"https://www.cityweekly.net/utah/the-thrill-chill-cult/Content?oid=16969345" }
+    ]
   }
 ];
 
@@ -490,11 +586,26 @@ function turnGallery(key,dir){
 
 /* ---------- Numbered markers ---------- */
 const markers = [];
+const SPRING_SVG = `<svg viewBox="0 0 24 24"><path d="M12 2c-2 4-5 7-5 11a5 5 0 0 0 10 0c0-4-3-7-5-11z"/></svg>`;
+function diningHTML(list){
+  if(!list || !list.length) return "";
+  const rows = list.map(d=>{
+    const nameHtml = d.creditUrl ? `<a href="${d.creditUrl}" target="_blank" rel="noopener">${d.name}</a>` : d.name;
+    const creditHtml = d.credit ? ` <span class="dine-credit">(${d.credit})</span>` : "";
+    return `<div class="dine-row"><b>${nameHtml}</b>${creditHtml}<span class="dine-desc">${d.desc}</span></div>`;
+  }).join("");
+  return `<div class="pop-dining"><div class="dine-head">Nearby dining</div>${rows}</div>`;
+}
+
 STOPS.forEach((s,i)=>{
   const cls = s.role==="start" ? "start" : "mid";
+  const isSpring = s.pinStyle==="spring";
+  const iconHtml = isSpring
+    ? `<div class="pin-wrap"><div class="pin-spring">${SPRING_SVG}</div></div>`
+    : `<div class="pin-wrap"><div class="pin ${cls}"><span>${s.role==="start" ? "S" : i}</span></div></div>`;
   const icon = L.divIcon({
     className:"",
-    html:`<div class="pin ${cls}"><span>${s.role==="start" ? "S" : i}</span></div>`,
+    html:iconHtml,
     iconSize:[34,42],iconAnchor:[17,38],popupAnchor:[0,-36]
   });
   const m = L.marker([s.lat,s.lng],{icon}).addTo(map);
@@ -503,19 +614,20 @@ STOPS.forEach((s,i)=>{
   if(s.gallery){
     mediaBlock = galleryHTML(s.gallery, i);
   } else {
-    const imgFile = `img/stop-${s.role==="start" ? "S" : i}.jpg`;
+    const imgFile = s.img || `img/stop-${s.role==="start" ? "S" : i}.jpg`;
     const imgTag = s.role==="start" ? "" : `<img class="pop-img" src="${imgFile}" alt="${s.name}" loading="lazy" />`;
-    const creditTag = s.credit ? `<div class="pop-credit">Photo: ${s.credit}</div>` : "";
+    const creditTag = s.credit ? `<div class="pop-credit">Photo: <a href="${s.creditUrl}" target="_blank" rel="noopener">${s.credit}</a></div>` : "";
     mediaBlock = imgTag + creditTag;
   }
   const popup = `
     <div class="pop">
       <div class="pop-head">
-        <div class="pop-tag">${s.role==="start" ? "Start / finish" : ("Stop "+i)} · ${s.tag}</div>
+        <div class="pop-tag">${s.role==="start" ? "Start / finish" : (isSpring ? "Soaking spring" : ("Stop "+i))} · ${s.tag}</div>
         <h3>${s.name}</h3>
       </div>
       ${mediaBlock}
       <div class="pop-body"><p>${s.desc}</p></div>
+      ${diningHTML(s.dining)}
       <div class="pop-addr">${s.address}</div>
       <div class="pop-foot">
         <a href="${dirUrl}" target="_blank" rel="noopener">
@@ -524,7 +636,7 @@ STOPS.forEach((s,i)=>{
         </a>
       </div>
     </div>`;
-  m.bindPopup(popup,{maxWidth:260,minWidth:240});
+  m.bindPopup(popup,{maxWidth:270,minWidth:240});
   markers.push(m);
 });
 
@@ -564,7 +676,7 @@ drawRoutes();
 const bearLakeMarker = L.marker([41.94482,-111.40462],{
   icon:L.divIcon({
     className:"",
-    html:`<div class="pin alt"><span>+</span></div>`,
+    html:`<div class="pin-wrap"><div class="pin alt"><span>+</span></div></div>`,
     iconSize:[30,37],iconAnchor:[15,33],popupAnchor:[0,-31]
   })
 }).addTo(map);
@@ -583,17 +695,23 @@ bearLakeMarker.bindPopup(`
 const stopsEl = document.getElementById("stops");
 const arrow = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
 
-const LEG_DISTANCES = {1:"114.6 mi",2:"9.9 mi",3:"25.8 mi",4:"11.4 mi",5:"22.1 mi",6:"1.7 mi",7:"52.9 mi",8:"1.0 mi",9:"26.9 mi",10:"24.3 mi"};
+const LEG_DISTANCES = {1:"75 mi",2:"40 mi",3:"9.9 mi",4:"25.8 mi",5:"11.4 mi",6:"22.1 mi",7:"1.7 mi",8:"52.9 mi",9:"1.0 mi",10:"7 mi",11:"21 mi",12:"26.9 mi",13:"24.3 mi",14:"25 mi"};
+const DETOUR_NOTES = {
+  10:"≈ 7 mi detour from Preston",
+  11:"≈ 21 mi detour from Preston via Hwy 34 (skip Bear River Hot Springs to go straight here)",
+  12:"26.9 mi from Preston (route continues here whether or not you take the spring detours)"
+};
 
 STOPS.forEach((s,i)=>{
   const li = document.createElement("li");
+  const isSpring = s.pinStyle==="spring";
   li.className = "stop" + (i===5 ? " leg-divider" : "");
   li.dataset.role = s.role;
   li.dataset.index = i;
   const dirUrl = `https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}&travelmode=driving`;
-  const legNote = i>0 ? `<span style="color:#9a917f"> · ${LEG_DISTANCES[i]} from previous stop</span>` : "";
+  const legNote = i>0 ? `<span style="color:#9a917f"> · ${DETOUR_NOTES[i] || (LEG_DISTANCES[i]+" from previous stop")}</span>` : "";
   li.innerHTML = `
-    <div class="badge">${s.role==="start" ? "S" : i}</div>
+    <div class="badge${isSpring ? " spring" : ""}">${s.role==="start" ? "S" : i}</div>
     <div class="body">
       <div class="name">${s.name}</div>
       <div class="desc">${s.desc}${legNote}</div>
@@ -608,16 +726,16 @@ STOPS.forEach((s,i)=>{
   });
   stopsEl.appendChild(li);
 
-  if(i===6){
+  if(i===7){
     const forkLi = document.createElement("li");
     forkLi.className = "fork-card";
     forkLi.innerHTML = `
       <div class="fork-head">Two ways home from Soda Springs</div>
       <div class="fork-row"><span class="lbl">Murray → Lava Hot Springs</span><b>2h 58m<i>161.7 mi</i></b></div>
       <div class="fork-row"><span class="lbl">Lava Hot Springs → Soda Springs</span><b>27m<i>22.1 mi</i></b></div>
-      <div class="fork-row"><span class="lbl"><span class="sw-line" style="background:var(--azure)"></span>Soda Springs → Murray, via Logan</span><b>3h 41m<i>172.3 mi</i></b></div>
-      <div class="fork-row"><span class="lbl"><span class="sw-line" style="background:var(--teal)"></span>Soda Springs → Murray, via Bear Lake</span><b>4h 21m<i>192.7 mi</i></b></div>
-      <p class="fork-note">The Bear Lake option trades Preston and the Bear River Massacre site for Garden City's turquoise shoreline and a run down Logan Canyon — about 20 miles and 40 minutes longer, rejoining the original route at Logan.</p>`;
+      <div class="fork-row"><span class="lbl"><span class="sw-line" style="background:var(--azure)"></span>Soda Springs → Murray, via Logan & Ogden</span><b>3h 44m<i>173.8 mi</i></b></div>
+      <div class="fork-row"><span class="lbl"><span class="sw-line" style="background:var(--teal)"></span>Soda Springs → Murray, via Bear Lake</span><b>4h 23m<i>194.1 mi</i></b></div>
+      <p class="fork-note">The Bear Lake option trades Preston and the Bear River Massacre site for Garden City's turquoise shoreline and a run down Logan Canyon — about 20 miles and 40 minutes longer, rejoining the original route at Logan. Neither total includes the optional gold-pin detours to Bear River Hot Springs or Maple Grove Hot Springs near Preston, which add their own extra miles if you take them.</p>`;
     stopsEl.appendChild(forkLi);
   }
 });
@@ -634,7 +752,7 @@ retLi.dataset.role = "end";
     <div class="badge">↵</div>
     <div class="body">
       <div class="name">Return to Murray, UT</div>
-      <div class="desc">From Brigham City south on I-15 back to Glencrest Road — about 65.6 mi, roughly 1 hr 15 min.</div>
+      <div class="desc">From Ogden's Union Station south to Glencrest Road — about 42 mi, roughly 45 min.</div>
     </div>
     <a class="dir-btn" href="${dirUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${arrow}Directions</a>`;
 }
@@ -686,9 +804,11 @@ STOPS.forEach((s,i)=>{
   const tr = document.createElement("tr");
   tr.style.borderBottom = "1px solid #e3d9c3";
   const sourceCell = s.credit ? ` <span style="color:#9a917f">(<a href="${s.creditUrl}" style="color:#9a917f;text-decoration:none">${s.credit}</a>)</span>` : "";
+  const badgeBg = i===0 ? '#5b6b3a' : (s.pinStyle==="spring" ? 'var(--gold)' : '#b8502a');
+  const badgeRadius = s.pinStyle==="spring" ? '6px' : '50%';
   tr.innerHTML = `
     <td style="vertical-align:top;padding:4mm 3mm;width:10mm">
-      <div style="width:24px;height:24px;border-radius:50%;background:${i===0?'#5b6b3a':'#b8502a'};color:#fff;font-family:'Fraunces',serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center">${i===0?'S':i}</div>
+      <div style="width:24px;height:24px;border-radius:${badgeRadius};background:${badgeBg};color:#fff;font-family:'Fraunces',serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center">${i===0?'S':i}</div>
     </td>
     <td style="vertical-align:top;padding:4mm 3mm;width:58mm">
       <div style="font-family:'Fraunces',serif;font-weight:600;font-size:15px;line-height:1.2">${s.name}</div>
@@ -708,7 +828,7 @@ rtr.innerHTML = `
     <div style="font-family:'Fraunces',serif;font-weight:600;font-size:15px;line-height:1.2">Return to Murray, UT</div>
     <div style="font-size:10.5px;color:#7a7468;margin-top:2px">4748 South Glencrest Road, Murray, UT 84107</div>
   </td>
-  <td style="vertical-align:top;padding:4mm 3mm;font-size:11.5px;line-height:1.5;color:#3a352d">The dashed blue route on the map traces the drive back from Brigham City down I-15 to Murray — about 65.6 mi, roughly 1 hr 15 min.</td>`;
+  <td style="vertical-align:top;padding:4mm 3mm;font-size:11.5px;line-height:1.5;color:#3a352d">The dashed blue route on the map traces the drive back from Ogden's Union Station down I-15 to Murray — about 42 mi, roughly 45 min.</td>`;
 tbl.appendChild(rtr);
 </script>
 </body>
