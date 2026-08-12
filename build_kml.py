@@ -5,7 +5,7 @@ d = json.load(open('/home/user/workspace/roadtrip/map_data_export.json'))
 stops = d['stops']
 outbound = d['outbound']
 ret = d['ret']
-alt = d['alt']
+offroute = d.get('offroute', [])
 IMAGE_MAP = json.load(open('/home/user/workspace/roadtrip/image_map.json'))
 
 def hex_to_kml_color(hexcolor, alpha="ff"):
@@ -15,12 +15,13 @@ def hex_to_kml_color(hexcolor, alpha="ff"):
 
 OUTBOUND_COLOR = hex_to_kml_color("b8502a")
 RETURN_COLOR = hex_to_kml_color("2b6ca0")
-ALT_COLOR = hex_to_kml_color("2a7f7e")
+OFFROUTE_COLOR = hex_to_kml_color("6b3f9e")
 
 ICONS = {
     "start": "https://maps.google.com/mapfiles/kml/paddle/grn-stars.png",
     "spring": "https://maps.google.com/mapfiles/kml/paddle/blu-circle.png",
     "mid": "https://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+    "offroute": "https://maps.google.com/mapfiles/kml/paddle/purple-circle.png",
 }
 
 def coords_to_kml(coord_pairs):
@@ -75,7 +76,8 @@ placemarks = []
 for i, s in enumerate(stops):
     style = "start" if s.get("role") == "start" else ("spring" if s.get("pinStyle") == "spring" else "mid")
     num_label = "S" if s.get("role") == "start" else str(i)
-    label = f"{num_label} \u00b7 {s['name']}"
+    confirmed = " (Confirmed)" if s.get("certain") else ""
+    label = f"{num_label} \u00b7 {s['name']}{confirmed}"
     desc_html = build_description(s, i)
     placemarks.append(f"""
     <Placemark>
@@ -85,6 +87,25 @@ for i, s in enumerate(stops):
       <Point><coordinates>{s['lng']},{s['lat']},0</coordinates></Point>
     </Placemark>""")
 
+# Off-route "story" placemarks (PJS / PGS) — distinct purple style, not part of the driving route.
+offroute_placemarks = []
+for o in offroute:
+    label = f"{o['key']} \u00b7 {o['title']} (Not on route)"
+    parts = []
+    url = IMAGE_MAP.get(o.get("img", ""))
+    if url:
+        parts.append(f'<img src="{escape(url)}" style="width:100%;max-width:320px;border-radius:6px;margin-bottom:8px" />')
+    parts.append(f'<div style="color:#666;font-size:12px;margin-bottom:6px">{escape(o.get("tag",""))}</div>')
+    parts.append(f'<p style="margin:0 0 10px 0">{escape(o.get("text",""))}</p>')
+    desc_html = "".join(parts)
+    offroute_placemarks.append(f"""
+    <Placemark>
+      <name>{escape(label)}</name>
+      <styleUrl>#offroutePin</styleUrl>
+      <description><![CDATA[{desc_html}]]></description>
+      <Point><coordinates>{o['lng']},{o['lat']},0</coordinates></Point>
+    </Placemark>""")
+
 route_placemarks = f"""
     <Placemark>
       <name>Outbound route (Murray to Lava Hot Springs)</name>
@@ -92,20 +113,17 @@ route_placemarks = f"""
       <LineString><tessellate>1</tessellate><coordinates>{coords_to_kml(outbound)}</coordinates></LineString>
     </Placemark>
     <Placemark>
-      <name>Return route (via Preston &amp; Logan)</name>
+      <name>Return route (via Niter Ice Cave, Preston &amp; Logan)</name>
       <styleUrl>#returnLine</styleUrl>
       <LineString><tessellate>1</tessellate><coordinates>{coords_to_kml(ret)}</coordinates></LineString>
-    </Placemark>
-    <Placemark>
-      <name>Alternate return (via Bear Lake)</name>
-      <styleUrl>#altLine</styleUrl>
-      <LineString><tessellate>1</tessellate><coordinates>{coords_to_kml(alt)}</coordinates></LineString>
     </Placemark>"""
 
 MAP_DESCRIPTION = (
-    "Utah \u00b7 Idaho \u2014 Sunday Drive. North on I-15 through Malad and McCammon to the hot pools, "
-    "then home by Soda Springs, Preston, and Logan \u2014 Sunday, August 16. Gold-marked stops are soaking springs. "
-    "15 stops \u00b7 161.7 mi outbound \u00b7 202.7 mi return \u00b7 ~7h 30m total drive time."
+    "Utah \u00b7 Idaho \u2014 Saturday Drive, August 22. Departure time TBD. North past the Great Salt Lake "
+    "wildlife refuges to Malad and Lava Hot Springs (the only confirmed stops), then home through Idaho's "
+    "Cache Valley. Gold-marked stops are soaking springs; purple pins (PJS, PGS) are off-route family-history "
+    "story stops, not part of the drive. "
+    "21 points of interest \u00b7 182.9 mi outbound \u00b7 251.4 mi return."
 )
 
 kml = f"""<?xml version="1.0" encoding="UTF-8"?>
@@ -116,13 +134,17 @@ kml = f"""<?xml version="1.0" encoding="UTF-8"?>
   <Style id="startPin"><IconStyle><Icon><href>{ICONS['start']}</href></Icon></IconStyle></Style>
   <Style id="springPin"><IconStyle><Icon><href>{ICONS['spring']}</href></Icon></IconStyle></Style>
   <Style id="midPin"><IconStyle><Icon><href>{ICONS['mid']}</href></Icon></IconStyle></Style>
+  <Style id="offroutePin"><IconStyle><Icon><href>{ICONS['offroute']}</href></Icon></IconStyle></Style>
   <Style id="outboundLine"><LineStyle><color>{OUTBOUND_COLOR}</color><width>4</width></LineStyle></Style>
   <Style id="returnLine"><LineStyle><color>{RETURN_COLOR}</color><width>4</width></LineStyle></Style>
-  <Style id="altLine"><LineStyle><color>{ALT_COLOR}</color><width>3</width></LineStyle></Style>
 
   <Folder>
     <name>Stops</name>
     {"".join(placemarks)}
+  </Folder>
+  <Folder>
+    <name>Off-route story stops (PJS, PGS)</name>
+    {"".join(offroute_placemarks)}
   </Folder>
   <Folder>
     <name>Routes</name>
@@ -146,8 +168,10 @@ kml_stops_only = f"""<?xml version="1.0" encoding="UTF-8"?>
   <Style id="startPin"><IconStyle><Icon><href>{ICONS['start']}</href></Icon></IconStyle></Style>
   <Style id="springPin"><IconStyle><Icon><href>{ICONS['spring']}</href></Icon></IconStyle></Style>
   <Style id="midPin"><IconStyle><Icon><href>{ICONS['mid']}</href></Icon></IconStyle></Style>
+  <Style id="offroutePin"><IconStyle><Icon><href>{ICONS['offroute']}</href></Icon></IconStyle></Style>
 
   {"".join(placemarks)}
+  {"".join(offroute_placemarks)}
 </Document>
 </kml>
 """
